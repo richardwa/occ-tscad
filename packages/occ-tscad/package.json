@@ -1,0 +1,15 @@
+{
+  "name": "occ-tscad",
+  "version": "0.0.0",
+  "type": "module",
+  "bin": {
+    "tscad-render": "bin/cli-render.ts"
+  },
+  "main": "./src",
+  "scripts": {
+    "format": "bun x prettier -w .",
+    "prebuild": "bun run format",
+    "build": "tsc",
+    "render": "bun bin/cli-render.ts"
+  }
+}

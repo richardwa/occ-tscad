@@ -1,0 +1,12 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  font-family: monospace;
+}
+
+model-viewer {
+  height: 500px;
+  width: 500px;
+  background-color: #1d1d4e;
+}

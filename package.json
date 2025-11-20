@@ -1,0 +1,28 @@
+{
+  "name": "occ-tscad",
+  "main": "./packages/occ-tscad/src",
+  "bin": {
+    "tscad-server": "./packages/server/bin/server.ts"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "format": "bun x prettier -w .",
+    "build": "bun run --workspaces build",
+    "postinstall": "bun run build"
+  },
+  "dependencies": {
+    "@google/model-viewer": "^1.12.1",
+    "express": "^5.2.1",
+    "opencascade.js": "2.0.0-beta.c301f5e",
+    "prettier": "^3.8.1",
+    "solid-vanilla": "github:richardwa/solid-vanilla"
+  },
+  "peerDependencies": {
+    "@types/express": "types/express",
+    "@types/node": "^25.1.0",
+    "typescript": "~5.9.3",
+    "vite": "^7.3.1"
+  }
+}
