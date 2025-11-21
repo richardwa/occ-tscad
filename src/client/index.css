@@ -8,4 +8,5 @@ html {
 model-viewer {
   height: 500px;
   width: 500px;
+  background-color: #1d1d4e;
 }
