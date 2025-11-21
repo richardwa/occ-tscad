@@ -1,4 +1,8 @@
-import { OpenCascadeInstance, TopoDS_Shape, STEPControl_StepModelType } from "opencascade.js";
+import {
+  OpenCascadeInstance,
+  TopoDS_Shape,
+  STEPControl_StepModelType,
+} from "opencascade.js";
 
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { STLExporter } from "three/examples/jsm/exporters/STLExporter.js";
@@ -6,10 +10,7 @@ import { STLExporter } from "three/examples/jsm/exporters/STLExporter.js";
 import { OBJExporter } from "three/examples/jsm/exporters/OBJExporter.js";
 
 // Takes a TopoDS_Shape, creates a GLB file from it and returns a ObjectURL
-export function shapeToGLB(
-  oc: OpenCascadeInstance,
-  shape: TopoDS_Shape,
-) {
+export function shapeToGLB(oc: OpenCascadeInstance, shape: TopoDS_Shape) {
   // Create a document and add our shape
   const docHandle = new oc.Handle_TDocStd_Document_2(
     new oc.TDocStd_Document(new oc.TCollection_ExtendedString_1()),
@@ -42,7 +43,6 @@ export function shapeToGLB(
   );
 }
 
-
 export async function glbToStlUrl(glbUrl: string): Promise<string> {
   const loader = new GLTFLoader();
   const gltf = await loader.loadAsync(glbUrl);
@@ -70,7 +70,5 @@ export async function glbToObjUrl(glbUrl: string): Promise<string> {
   const exporter = new OBJExporter();
   const objText = exporter.parse(gltf.scene); // OBJ string
 
-  return URL.createObjectURL(
-    new Blob([objText], { type: "text/plain" })
-  );
+  return URL.createObjectURL(new Blob([objText], { type: "text/plain" }));
 }

@@ -14,7 +14,6 @@ export const formatDate = (date?: Date | string) => {
   return `${yyyy}-${mm}-${dd} ${hh}:${min}`;
 };
 
-
 export function setExtension(filename: string, newExt: string): string {
   // Remove existing extension if any
   const baseName = filename.replace(/\.[^/.]+$/, "");

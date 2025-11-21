@@ -51,5 +51,5 @@ export const main = (oc: OpenCascadeInstance) => {
   );
   fuse.Build(new oc.Message_ProgressRange_1());
   const result = fuse.Shape().Moved(makeRotation((-30 * Math.PI) / 180), false);
-  return result;
+  return { shape: result };
 };

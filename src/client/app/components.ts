@@ -14,7 +14,7 @@ export const Button = (...children: Array<RNode | string>) =>
   h("button")
     .attr("type", "button")
     .css("padding", "0.25rem")
-    .css("cursor","pointer")
+    .css("cursor", "pointer")
     .inner(...children);
 
 export const NavLink = (href: string, ...children: Array<RNode | string>) =>

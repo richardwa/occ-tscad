@@ -1,7 +1,4 @@
-export function downloadBinaryFile(
-  internalUrl: string,
-  fileName: string,
-) {
+export function downloadBinaryFile(internalUrl: string, fileName: string) {
   // Create a download link
   const link = document.createElement("a");
 

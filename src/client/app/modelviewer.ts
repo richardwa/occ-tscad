@@ -1,18 +1,17 @@
 import { hbox, vbox, div, fragment, grid } from "../lib/base-components";
-import { Button, NumberInput, Title,  } from "./components";
-import { signal, h , downloadBinaryFile } from "../lib";
-import {shapeToGLB, glbToStlUrl, glbToObjUrl } from "./shapeToUrl";
-import {setExtension} from '../../common/util';
-import initOpenCascade from "opencascade.js";
+import { Button, NumberInput, Title } from "./components";
+import { signal, h, downloadBinaryFile } from "../lib";
+import { shapeToGLB, glbToStlUrl, glbToObjUrl } from "./shapeToUrl";
+import { setExtension } from "../../common/util";
+import { getOCC } from "./occ";
 import "@google/model-viewer";
 
 // @ts-ignore
 const modules = import.meta.glob("../../../models/*");
-const ocLoaded = initOpenCascade();
 
 export const ModelViewer = (file: string) => {
   const modelUrl = signal<string>();
-  const downloadButton = Button('loading...');
+  const downloadButton = Button("loading...");
 
   return div(
     downloadButton,
@@ -22,7 +21,7 @@ export const ModelViewer = (file: string) => {
         node.attr("src", modelUrl.get());
       }),
   ).do(async (node) => {
-    const oc = await ocLoaded;
+    const oc = getOCC();
     const path = `../../../models/${file}`;
     const loader = modules[path];
     if (!loader) {
@@ -36,11 +35,11 @@ export const ModelViewer = (file: string) => {
     }
 
     const result = main(oc);
-    const url = shapeToGLB(oc, result);
+    const url = shapeToGLB(oc, result.shape);
     modelUrl.set(url);
-    downloadButton.inner('Download').on('click',async () => {
+    downloadButton.inner("Download").on("click", async () => {
       const stlUrl = await glbToObjUrl(url);
-      downloadBinaryFile(stlUrl, setExtension(file, 'obj'));
-    })
+      downloadBinaryFile(stlUrl, setExtension(file, "obj"));
+    });
   });
 };
