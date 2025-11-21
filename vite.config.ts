@@ -25,4 +25,8 @@ export default defineConfig({
     emptyOutDir: true,
   },
   plugins: [expressPlugin()],
+  optimizeDeps: {
+    exclude: ["opencascade.js"],
+  },
+  assetsInclude: ["**/*.wasm"]
 });

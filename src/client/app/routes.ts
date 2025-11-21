@@ -1,8 +1,8 @@
 import { Router } from "../lib";
-import { GitDemo } from "./gitdemo";
+import { ModelViewer } from "./modelviewer";
 
 const router = new Router();
 
-router.addRoute("/", () => GitDemo());
+router.addRoute("/", () => ModelViewer());
 
 export { router };

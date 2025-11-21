@@ -6,6 +6,6 @@ export const App = () =>
   div()
     .css("padding", "0.5rem")
     .inner(
-      Title("Git Logs").css("font-weight", "bold").css("margin-bottom", "1rem"),
+      Title("Opencascade tsCAD").css("font-weight", "bold").css("margin-bottom", "1rem"),
       router.getRoot(),
     );
