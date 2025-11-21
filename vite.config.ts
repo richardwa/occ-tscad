@@ -28,5 +28,5 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ["opencascade.js"],
   },
-  assetsInclude: ["**/*.wasm"]
+  assetsInclude: ["**/*.wasm"],
 });

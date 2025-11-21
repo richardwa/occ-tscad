@@ -1,5 +1,6 @@
 import express, { Request, Response, Server, NextFunction } from "express";
 import { apiPath, type ServerApi } from "../common/interface";
+import { readdir } from "fs/promises";
 
 export const configureRoutes = (app: Server) => {
   // @ts-ignore
@@ -11,7 +12,7 @@ export const configureRoutes = (app: Server) => {
   app.use(logger);
 
   const serverImpl: ServerApi = {
-    // add methods here
+    listFiles: () => readdir("./models"),
   };
   const routes = express.Router();
   Object.entries(serverImpl).forEach(([key, fn]) => {

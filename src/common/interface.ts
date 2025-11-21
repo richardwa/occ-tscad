@@ -1,6 +1,7 @@
 export const apiPath = "/api";
 
 export type ServerApi = {
+  listFiles: () => Promise<string[]>;
 };
 
 export const fetchJson = <T extends keyof ServerApi>(
