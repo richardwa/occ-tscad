@@ -13,3 +13,12 @@ export const formatDate = (date?: Date | string) => {
 
   return `${yyyy}-${mm}-${dd} ${hh}:${min}`;
 };
+
+
+export function setExtension(filename: string, newExt: string): string {
+  // Remove existing extension if any
+  const baseName = filename.replace(/\.[^/.]+$/, "");
+  // Ensure newExt doesn't have a leading dot
+  const cleanExt = newExt.startsWith(".") ? newExt.slice(1) : newExt;
+  return `${baseName}.${cleanExt}`;
+}

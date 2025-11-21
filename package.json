@@ -5,19 +5,19 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "format": "bun x prettier -w *.json *.ts ./src",
+    "format": "bun x prettier -w *.json *.ts ./src ./models",
     "prebuild": "bun run format",
-    "build": "tsc && vite build",
-    "prestart": "bun run build",
-    "start": "bun src/server/server.ts"
+    "build": "tsc && vite build"
   },
   "dependencies": {
     "@google/model-viewer": "^1.11.1",
     "express": "^5.1.0",
-    "opencascade.js": "2.0.0-beta.c301f5e"
+    "opencascade.js": "2.0.0-beta.c301f5e",
+    "three": "^0.181.2"
   },
   "devDependencies": {
     "@types/express": "types/express",
+    "@types/three": "^0.181.0",
     "prettier": "^3.6.2",
     "typescript": "~5.9.3",
     "vite": "^7.2.2"

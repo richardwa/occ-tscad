@@ -1,20 +1,21 @@
 import { hbox, vbox, div, fragment, grid } from "../lib/base-components";
-import { ClickLink, NumberInput, Title } from "./components";
-import { signal, h } from "../lib";
-import shapeToUrl from "./shapeToUrl";
+import { Button, NumberInput, Title,  } from "./components";
+import { signal, h , downloadBinaryFile } from "../lib";
+import {shapeToGLB, glbToStlUrl, glbToObjUrl } from "./shapeToUrl";
+import {setExtension} from '../../common/util';
 import initOpenCascade from "opencascade.js";
 import "@google/model-viewer";
+
 // @ts-ignore
 const modules = import.meta.glob("../../../models/*");
 const ocLoaded = initOpenCascade();
 
 export const ModelViewer = (file: string) => {
   const modelUrl = signal<string>();
+  const downloadButton = Button('loading...');
 
   return div(
-    div().watch(modelUrl, (node) => {
-      node.inner(modelUrl.get() ? "" : "loading...");
-    }),
+    downloadButton,
     h("model-viewer")
       .attr("camera-controls")
       .watch(modelUrl, (node) => {
@@ -35,6 +36,11 @@ export const ModelViewer = (file: string) => {
     }
 
     const result = main(oc);
-    modelUrl.set(shapeToUrl(oc, result));
+    const url = shapeToGLB(oc, result);
+    modelUrl.set(url);
+    downloadButton.inner('Download').on('click',async () => {
+      const stlUrl = await glbToObjUrl(url);
+      downloadBinaryFile(stlUrl, setExtension(file, 'obj'));
+    })
   });
 };
