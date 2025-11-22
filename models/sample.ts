@@ -1,4 +1,7 @@
 import { Box, Sphere } from "../src/common/csg";
 
 export const main = () =>
-  new Box(2, 2, 2).rotateX(30);
+  new Sphere(0.5)
+    .union(new Box(1, 1, 1).rotateX(30).translate([2, 0, 0]))
+    .union(new Box(1.2, 1.2, 1.2).rotateY(30).translate([0, 2, 0]))
+    .union(new Box(1.5, 1.5, 1.5).rotateZ(30).translate([0, 0, 2]));

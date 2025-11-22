@@ -17,6 +17,8 @@ export const ModelViewer = (file: string) => {
     downloadButton,
     h("model-viewer")
       .attr("camera-controls")
+      .attr("interaction-prompt", "none")
+      .attr("camera-orbit", "45deg 75deg auto")
       .watch(modelUrl, (node) => {
         node.attr("src", modelUrl.get());
       }),

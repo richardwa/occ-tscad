@@ -65,11 +65,7 @@ export class Shape3 {
     const tf = new oc.gp_Trsf_1();
     const angle = degrees / (2 * Math.PI);
     tf.SetRotation_1(axis, angle);
-    const transformer = new oc.BRepBuilderAPI_Transform_2(
-      this.shape,
-      tf,
-      false,
-    );
+    const transformer = new oc.BRepBuilderAPI_Transform_2(this.shape, tf, true);
     return transformer.Shape();
   }
 
