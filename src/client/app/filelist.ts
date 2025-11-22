@@ -8,13 +8,7 @@ export const fileList = () =>
     .css("border-right", "1px solid gray")
     .css("min-height", "100vh")
     .inner(
-      div()
-        .css("border-bottom", "1px solid gray")
-        .inner(
-          Title("models")
-            .css("text-align", "center")
-            .css("margin", "0.25rem 0"),
-        ),
+      div().css("border-bottom", "1px solid gray").inner(Title("models")),
       vbox()
         .css("padding", ".25rem")
         .do(async (node) => {

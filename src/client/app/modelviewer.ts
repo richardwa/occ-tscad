@@ -12,16 +12,23 @@ const modules = import.meta.glob("../../../models/*");
 export const ModelViewer = (file: string) => {
   const modelUrl = signal<string>();
   const downloadButton = Button("loading...");
+  const initialCameraDirection = "45deg 75deg auto";
+  const resetSignal = signal(Symbol());
 
-  return div(
-    downloadButton,
+  return vbox(
     h("model-viewer")
       .attr("camera-controls")
       .attr("interaction-prompt", "none")
-      .attr("camera-orbit", "45deg 75deg auto")
+      .watch(resetSignal, (node) =>
+        node.attr("camera-orbit", initialCameraDirection),
+      )
       .watch(modelUrl, (node) => {
         node.attr("src", modelUrl.get());
       }),
+    hbox(
+      Button("Reset View").on("click", () => resetSignal.set(Symbol())),
+      downloadButton,
+    ),
   ).do(async (node) => {
     const oc = getOCC();
     const path = `../../../models/${file}`;

@@ -9,12 +9,5 @@ export const App = () =>
     .css("padding", "0.5rem")
     .do(async (node) => {
       await initOCC();
-      node.inner(
-        Title("Opencascade tsCAD")
-          .css("font-weight", "bold")
-          .css("margin-bottom", "1rem")
-          .css("cursor", "pointer")
-          .on("click", () => router.navigate("/")),
-        hbox(fileList(), router.getRoot()),
-      );
+      node.inner(hbox(fileList(), router.getRoot()));
     });
