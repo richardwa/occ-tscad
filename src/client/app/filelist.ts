@@ -10,15 +10,17 @@ export const fileList = () =>
     .inner(
       div().css("border-bottom", "1px solid gray").inner(Title("models")),
       vbox()
-        .css("padding", ".25rem")
+        .css("padding-right", ".25rem")
         .do(async (node) => {
           const files = await fetchJson("listFiles");
           node.inner(
-            ...files.map((file) =>
-              ClickLink(file).on("click", () =>
-                router.navigate(`/model-viewer/${file}`),
+            ...files
+              .sort()
+              .map((file) =>
+                ClickLink(file).on("click", () =>
+                  router.navigate(`/model-viewer/${file}`),
+                ),
               ),
-            ),
           );
         }),
     );
