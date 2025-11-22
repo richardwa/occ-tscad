@@ -7,7 +7,9 @@
     "dev": "vite",
     "format": "bun x prettier -w *.json *.ts ./src ./models",
     "prebuild": "bun run format",
-    "build": "tsc && vite build"
+    "build": "tsc && vite build",
+    "prestart": "bun run build",
+    "start": "bun src/server/server.ts"
   },
   "dependencies": {
     "@google/model-viewer": "^1.11.1",

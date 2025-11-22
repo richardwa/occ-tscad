@@ -4,11 +4,6 @@ import {
   STEPControl_StepModelType,
 } from "opencascade.js";
 
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
-import { STLExporter } from "three/examples/jsm/exporters/STLExporter.js";
-
-import { OBJExporter } from "three/examples/jsm/exporters/OBJExporter.js";
-
 // Takes a TopoDS_Shape, creates a GLB file from it and returns a ObjectURL
 export function shapeToGLB(oc: OpenCascadeInstance, shape: TopoDS_Shape) {
   // Create a document and add our shape
@@ -44,6 +39,12 @@ export function shapeToGLB(oc: OpenCascadeInstance, shape: TopoDS_Shape) {
 }
 
 export async function glbToStlUrl(glbUrl: string): Promise<string> {
+  const { GLTFLoader } = await import(
+    "three/examples/jsm/loaders/GLTFLoader.js"
+  );
+  const { STLExporter } = await import(
+    "three/examples/jsm/exporters/STLExporter.js"
+  );
   const loader = new GLTFLoader();
   const gltf = await loader.loadAsync(glbUrl);
 
@@ -54,6 +55,12 @@ export async function glbToStlUrl(glbUrl: string): Promise<string> {
 }
 
 export async function glbToStlObj(glbUrl: string): Promise<string> {
+  const { GLTFLoader } = await import(
+    "three/examples/jsm/loaders/GLTFLoader.js"
+  );
+  const { STLExporter } = await import(
+    "three/examples/jsm/exporters/STLExporter.js"
+  );
   const loader = new GLTFLoader();
   const gltf = await loader.loadAsync(glbUrl);
 
@@ -64,6 +71,12 @@ export async function glbToStlObj(glbUrl: string): Promise<string> {
 }
 
 export async function glbToObjUrl(glbUrl: string): Promise<string> {
+  const { GLTFLoader } = await import(
+    "three/examples/jsm/loaders/GLTFLoader.js"
+  );
+  const { OBJExporter } = await import(
+    "three/examples/jsm/exporters/OBJExporter.js"
+  );
   const loader = new GLTFLoader();
   const gltf = await loader.loadAsync(glbUrl);
 
