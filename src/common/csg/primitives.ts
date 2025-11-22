@@ -38,18 +38,42 @@ export class Shape3 {
     return this;
   }
 
-  union(anotherShape: Shape3) {
+  union(anotherShape: Shape3, radius: number = 0) {
     const fuse = new oc.BRepAlgoAPI_Fuse_3(
       this.shape,
       anotherShape.shape,
       new oc.Message_ProgressRange_1(),
     );
     fuse.Build(new oc.Message_ProgressRange_1());
-    this.shape = fuse.Shape();
+
+    if (radius) {
+      const fusedShape = fuse.Shape();
+
+      const mkFillet = new oc.BRepFilletAPI_MakeFillet(
+        fusedShape,
+        ChFi3d_Rational,
+      );
+      const newEdgesList = fuse.SectionEdges();
+
+      while (!newEdgesList.IsEmpty()) {
+        const edgeShape = newEdgesList.First_1();
+        newEdgesList.RemoveFirst(); // remove it from list
+
+        if (edgeShape.ShapeType() === oc.TopAbs_ShapeEnum.TopAbs_EDGE) {
+          const edge = oc.TopoDS.Edge_1(edgeShape);
+          mkFillet.Add_2(0.2, edge);
+        }
+      }
+
+      mkFillet.Build(new oc.Message_ProgressRange_1());
+      this.shape = mkFillet.Shape();
+    } else {
+      this.shape = fuse.Shape();
+    }
     return this;
   }
 
-  doEdges(fn: (edge: TopoDS_Edge, i: number) => void) {
+  private doEdges(fn: (edge: TopoDS_Edge, i: number) => void) {
     const edgeMap = new oc.TopTools_IndexedMapOfShape_1();
     oc.TopExp.MapShapes_1(this.shape, TopAbs_EDGE, edgeMap);
     for (let i = 1; i <= edgeMap.Extent(); i++) {
