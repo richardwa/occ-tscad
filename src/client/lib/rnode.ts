@@ -1,4 +1,4 @@
-﻿import { Signal } from "./signal";
+﻿import { Signal, observers } from "./signal";
 const debug = (...msg: any[]) => {
   // @ts-ignore
   if (import.meta.env.DEV) {
@@ -54,6 +54,7 @@ export class BaseNode {
     localMemoMap.set(key, newVal);
     return newVal;
   }
+
   inner(...newChildren: Array<ChildNode>) {
     const newChildElements = newChildren.map((r) => {
       if (typeof r === "string") {
@@ -74,39 +75,97 @@ export class BaseNode {
     this.childrenSet = newChildrenSet;
     return this;
   }
+
+  createEffect(fn: () => void) {
+    observers.push((signal) => {
+      const clear = signal.on(fn);
+      this.unmountListeners.push(clear);
+    });
+    const val = fn();
+    observers.pop();
+    return val;
+  }
 }
 
+type AttributeValue = string | null | undefined;
 export class RNode extends BaseNode {
   constructor(tag: string) {
     super(tag);
   }
 
-  attr(key: string, val?: string | null) {
+  private _setAttr(key: string, val: AttributeValue) {
+    const element = this.el;
+    if (val === null) {
+      element.removeAttribute(key);
+    } else if (val === undefined) {
+      element.setAttribute(key, "");
+    } else if (typeof val === "string") {
+      element.setAttribute(key, val);
+    }
+  }
+
+  attr(
+    key: string,
+    val?: AttributeValue | (() => AttributeValue) | Signal<AttributeValue>,
+  ) {
     const element = this.el;
     if (key == null) {
       while (element.attributes.length > 0) {
         element.removeAttribute(element.attributes[0].name);
       }
-    } else if (val === null) {
-      element.removeAttribute(key);
+    } else if (val instanceof Signal) {
+      this.createEffect(() => {
+        this._setAttr(key, val.get());
+      });
+    } else if (typeof val === "function") {
+      this.createEffect(() => {
+        this._setAttr(key, val());
+      });
     } else {
-      element.setAttribute(key, val ?? "");
+      this._setAttr(key, val);
     }
+
     return this;
   }
 
-  cn(name: string, add = true) {
+  private _cn(name: string, add: boolean) {
     if (add) {
       this.el.classList.add(name);
     } else {
       this.el.classList.remove(name);
     }
+  }
+
+  cn(name: string | (() => string) | Signal<string>, add = true) {
+    if (name instanceof Signal) {
+      this.createEffect(() => {
+        this._cn(name.get(), add);
+      });
+    } else if (typeof name === "function") {
+      this.createEffect(() => {
+        this._cn(name(), add);
+      });
+    } else {
+      this._cn(name, add);
+    }
     return this;
   }
 
-  css(name: string, ...values: any) {
-    // @ts-ignore
-    this.el.style[name] = values ? values.join(" ") : "";
+  css(name: string, val: string | (() => string) | Signal<string>) {
+    const element = this.el;
+    const _name = name as unknown as number;
+
+    if (val instanceof Signal) {
+      this.createEffect(() => {
+        element.style[_name] = val.get();
+      });
+    } else if (typeof val === "function") {
+      this.createEffect(() => {
+        element.style[_name] = val();
+      });
+    } else {
+      element.style[_name] = val;
+    }
     return this;
   }
 
