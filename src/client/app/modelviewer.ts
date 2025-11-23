@@ -12,6 +12,11 @@ export const ModelViewer = () => {
   const resetSignal = signal(Symbol());
 
   return vbox(
+    hbox(
+      Button()
+        .on("click", () => resetSignal.set(Symbol()))
+        .inner("Reset View"),
+    ),
     h("model-viewer")
       .attr("camera-controls")
       .attr("interaction-prompt", "none")
@@ -21,8 +26,5 @@ export const ModelViewer = () => {
       .watch(modelUrl, (node) => {
         node.attr("src", modelUrl.get());
       }),
-    hbox(Button().on("click", () => resetSignal.set(Symbol()))).inner(
-      "Reset View",
-    ),
   );
 };
