@@ -5,11 +5,14 @@ const debug = (...msg: any[]) => {
     console.debug(RNode.name, ...msg);
   }
 };
-export class RNode {
+
+export type ChildNode = BaseNode | string | (() => string);
+
+export class BaseNode {
   el: HTMLElement;
-  childrenSet: Set<RNode | string>;
+  childrenSet: Set<ChildNode>;
   unmountListeners: Array<() => void>;
-  memoMap?: Map<string | number, RNode | string>;
+  memoMap?: Map<string | number, ChildNode>;
 
   constructor(tag: string) {
     this.el = document.createElement(tag);
@@ -21,7 +24,7 @@ export class RNode {
     this.el.remove();
     debug("unmounted");
     this.childrenSet.forEach((r) => {
-      if (typeof r !== "string") r.unmount();
+      if (r instanceof BaseNode) r.unmount();
     });
     this.unmountListeners.forEach((fn) => fn());
   }
@@ -29,6 +32,53 @@ export class RNode {
   onUnmount(fn: () => void) {
     this.unmountListeners.push(fn);
     return this;
+  }
+
+  memo(key: string | number, fn: () => RNode | string) {
+    const localMemoMap = this.memoMap ?? new Map();
+    if (this.memoMap === undefined) {
+      this.memoMap = localMemoMap;
+    }
+    const val = localMemoMap.get(key);
+    if (val) {
+      debug("cache hit", key);
+      return val;
+    }
+    debug("cache miss", key);
+    const newVal = fn();
+    if (newVal instanceof RNode) {
+      newVal.onUnmount(() => {
+        localMemoMap.delete(key);
+      });
+    }
+    localMemoMap.set(key, newVal);
+    return newVal;
+  }
+  inner(...newChildren: Array<ChildNode>) {
+    const newChildElements = newChildren.map((r) => {
+      if (typeof r === "string") {
+        return r;
+      } else if (typeof r === "function") {
+        return r();
+      } else {
+        return r.el;
+      }
+    });
+    this.el.replaceChildren(...newChildElements);
+    const newChildrenSet = new Set(newChildren);
+    this.childrenSet.forEach((child) => {
+      if (!newChildrenSet.has(child) && child instanceof BaseNode) {
+        child.unmount();
+      }
+    });
+    this.childrenSet = newChildrenSet;
+    return this;
+  }
+}
+
+export class RNode extends BaseNode {
+  constructor(tag: string) {
+    super(tag);
   }
 
   attr(key: string, val?: string | null) {
@@ -91,42 +141,6 @@ export class RNode {
 
   do(fn: (node: RNode) => void) {
     fn(this);
-    return this;
-  }
-
-  memo(key: string | number, fn: () => RNode | string) {
-    const localMemoMap = this.memoMap ?? new Map();
-    if (this.memoMap === undefined) {
-      this.memoMap = localMemoMap;
-    }
-    const val = localMemoMap.get(key);
-    if (val) {
-      debug("cache hit", key);
-      return val;
-    }
-    debug("cache miss", key);
-    const newVal = fn();
-    if (newVal instanceof RNode) {
-      newVal.onUnmount(() => {
-        localMemoMap.delete(key);
-      });
-    }
-    localMemoMap.set(key, newVal);
-    return newVal;
-  }
-
-  inner(...newChildren: Array<RNode | string>) {
-    const newChildElements = newChildren.map((r) =>
-      typeof r === "string" ? r : r.el,
-    );
-    this.el.replaceChildren(...newChildElements);
-    const newChildrenSet = new Set(newChildren);
-    this.childrenSet.forEach((child) => {
-      if (!newChildrenSet.has(child) && typeof child !== "string") {
-        child.unmount();
-      }
-    });
-    this.childrenSet = newChildrenSet;
     return this;
   }
 }

@@ -10,12 +10,11 @@ export const Panel = (...children: Array<RNode | string>) =>
     .css("background-color", "#424242")
     .inner(...children);
 
-export const Button = (...children: Array<RNode | string>) =>
+export const Button = () =>
   h("button")
     .attr("type", "button")
     .css("padding", "0.25rem")
-    .css("cursor", "pointer")
-    .inner(...children);
+    .css("cursor", "pointer");
 
 export const NavLink = (href: string, ...children: Array<RNode | string>) =>
   h("a")

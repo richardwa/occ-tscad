@@ -12,7 +12,10 @@ const distPath = path.resolve(__dirname, "../../dist");
 app.use(express.static(distPath));
 
 // Serve /models from public/models
-app.use('/models', express.static(path.resolve(__dirname, '../../public/models')));
+app.use(
+  "/models",
+  express.static(path.resolve(__dirname, "../../public/models")),
+);
 
 // SPA fallback
 app.use((req: Request, res: Response) => {

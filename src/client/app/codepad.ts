@@ -28,37 +28,34 @@ export const CodePad = (file: string) => {
     const resp = await fetch(`/models/${file}`);
     const contents = await resp.text();
     fileContents.set(contents);
-
-    /*
-     
-    const oc = getOCC();
-    const path = `../../../models/${file}`;
-    const loader = modules[path];
-    if (!loader) {
-      node.inner(Title("import failed"));
-      return;
-    }
-    const { main } = await loader();
-    if (!main) {
-      node.inner(Title(`${file} does not export { main: Shape3 }`));
-      return;
-    }
-
-    const result = main(oc);
-    const url = shapeToGLB(oc, result.shape);
-     */
   })();
 
   return vbox(
     hbox(
-      Button("Render").on("click", async () => {
-        const url = modelUrl.get();
-        if (url) {
-          const stlUrl = await glbToObjUrl(url);
-          downloadBinaryFile(stlUrl, setExtension(file, "obj"));
-        }
-      }),
+      Button()
+        .on("click", async () => {
+          const contents = fileContents.get();
+          const { main } = await evalModule(contents);
+          if (!main) {
+            console.log(`${file} does not export { main: Shape3 }`);
+            return;
+          }
+          const oc = getOCC();
+          const result = main(oc);
+          const url = shapeToGLB(oc, result.shape);
+          modelUrl.set(url);
+        })
+        .inner("Render"),
+      Button()
+        .on("click", async () => {
+          const url = modelUrl.get();
+          if (url) {
+            const stlUrl = await glbToObjUrl(url);
+            downloadBinaryFile(stlUrl, setExtension(file, "obj"));
+          }
+        })
+        .inner("Download Obj"),
     ),
-    TextArea(fileContents),
+    TextArea(fileContents).css("width", "600px").css("height", "500px"),
   );
 };

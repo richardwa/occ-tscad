@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "format": "bun x prettier -w *.json *.ts ./src ./models",
+    "format": "bun x prettier -w *.json *.ts ./src ./public",
     "prebuild": "bun run format",
     "build": "tsc && vite build",
     "prestart": "bun run build",

@@ -1,4 +1,4 @@
-import { Box, Sphere } from "../src/common/csg";
+import { Box, Sphere } from "../../src/common/csg";
 
 export const main = () =>
   new Sphere(0.5)

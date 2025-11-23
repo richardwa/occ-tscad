@@ -21,6 +21,8 @@ export const ModelViewer = () => {
       .watch(modelUrl, (node) => {
         node.attr("src", modelUrl.get());
       }),
-    hbox(Button("Reset View").on("click", () => resetSignal.set(Symbol()))),
+    hbox(Button().on("click", () => resetSignal.set(Symbol()))).inner(
+      "Reset View",
+    ),
   );
 };
