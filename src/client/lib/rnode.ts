@@ -181,23 +181,6 @@ export class RNode extends BaseNode {
     return this;
   }
 
-  watch(
-    signals: Signal<unknown> | Signal<unknown>[],
-    fn: (n: RNode) => void,
-    now = true,
-  ) {
-    const register = (signal: Signal<unknown>) => {
-      const clear = signal.on(() => fn(this), now);
-      this.unmountListeners.push(clear);
-    };
-    if (Array.isArray(signals)) {
-      signals.forEach(register);
-    } else {
-      register(signals);
-    }
-    return this;
-  }
-
   do(fn: (node: RNode) => void) {
     fn(this);
     return this;
