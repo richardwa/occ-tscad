@@ -12,7 +12,7 @@ export const configureRoutes = (app: Server) => {
   app.use(logger);
 
   const serverImpl: ServerApi = {
-    listFiles: () => readdir("./models"),
+    listFiles: () => readdir("./public/models"),
   };
   const routes = express.Router();
   Object.entries(serverImpl).forEach(([key, fn]) => {

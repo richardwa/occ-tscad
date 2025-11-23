@@ -29,6 +29,13 @@ export const ClickLink = (...children: Array<RNode | string>) =>
     .css("color", "blue")
     .inner(...children);
 
+export const TextArea = (val: Signal<string>) =>
+  h("textarea")
+    .watch([val], (node) => {
+      (node.el as HTMLInputElement).value = val.get();
+    })
+    .on("change", (event) => val.set(event.target.value));
+
 export const TextInput = (val: Signal<string>) =>
   h("input")
     .attr("type", "text")
