@@ -17,6 +17,8 @@ app.use(
   express.static(path.resolve(__dirname, "../../public/models")),
 );
 
+app.use("/src", express.static(path.resolve(__dirname, "../../src")));
+
 // SPA fallback
 app.use((req: Request, res: Response) => {
   res.sendFile(path.join(distPath, "index.html"));
