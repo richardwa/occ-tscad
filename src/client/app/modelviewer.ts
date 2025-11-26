@@ -17,7 +17,7 @@ export const ModelViewer = () => {
       .attr("camera-controls")
       .attr("interaction-prompt", "none")
       .attr("camera-orbit", initialDirection)
-      // .attr("src", modelUrl)
-      .css("height","100%"),
+      .attr("src", modelUrl)
+      .css("height", "100%"),
   );
 };

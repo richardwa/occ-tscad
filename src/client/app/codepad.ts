@@ -37,19 +37,24 @@ export const CodePad = (file: string) => {
     renderContents();
   })();
 
-  return vbox().css("height","100%").inner(
-    hbox().inner(
-      Button().on("click", renderContents).inner("Render"),
-      Button()
-        .on("click", async () => {
-          const url = modelUrl.get();
-          if (url) {
-            const stlUrl = await glbToObjUrl(url);
-            downloadBinaryFile(stlUrl, setExtension(file, "obj"));
-          }
-        })
-        .inner("Download Obj"),
-    ),
-    TextArea(fileContents).css("width", "40rem").css("height","100%").css("flex-grow","1"),
-  );
+  return vbox()
+    .css("height", "100%")
+    .inner(
+      hbox().inner(
+        Button().on("click", renderContents).inner("Render"),
+        Button()
+          .on("click", async () => {
+            const url = modelUrl.get();
+            if (url) {
+              const stlUrl = await glbToObjUrl(url);
+              downloadBinaryFile(stlUrl, setExtension(file, "obj"));
+            }
+          })
+          .inner("Download Obj"),
+      ),
+      TextArea(fileContents)
+        .css("width", "40rem")
+        .css("height", "100%")
+        .css("flex-grow", "1"),
+    );
 };
