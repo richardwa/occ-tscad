@@ -18,9 +18,10 @@ export const fileList = () => {
 
   return vbox()
     .css("border-right", "1px solid gray")
-    .css("min-height", "100vh")
+    .css("min-height", "calc(100vh - 1rem)")
+    .css("min-width","10rem")
     .inner(
-      div().css("border-bottom", "1px solid gray").inner(Title("models")),
+      div().css("border-bottom", "1px solid gray").css("height","calc(26px+ .25rem)").inner(Title("models")),
       vbox().css("padding-right", ".25rem").do(loadFileList),
     );
 };

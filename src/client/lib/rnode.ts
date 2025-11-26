@@ -112,6 +112,8 @@ export class RNode implements BaseNode {
     });
   }
 
+  inner(first?: OptionalSignal<BaseNode | string>): BaseNode;
+  inner(...nodes: OptionalSignal<BaseNode>[]): BaseNode;
   inner(...newChildren: any[]) {
     const newChildElements: Array<string | HTMLElement> = newChildren
       .filter((s) => s)

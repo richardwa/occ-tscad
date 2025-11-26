@@ -8,6 +8,7 @@ import { getOCC } from "./occ";
 
 export const CodePad = (file: string) => {
   const fileContents = signal("");
+  console.log(file);
 
   const renderContents = async () => {
     const { Sphere, Box } = await import("../../common/csg");
@@ -36,7 +37,7 @@ export const CodePad = (file: string) => {
     renderContents();
   })();
 
-  return vbox().inner(
+  return vbox().css("height","100%").inner(
     hbox().inner(
       Button().on("click", renderContents).inner("Render"),
       Button()
@@ -49,6 +50,6 @@ export const CodePad = (file: string) => {
         })
         .inner("Download Obj"),
     ),
-    TextArea(fileContents).css("width", "600px").css("height", "500px"),
+    TextArea(fileContents).css("width", "40rem").css("height","100%").css("flex-grow","1"),
   );
 };
