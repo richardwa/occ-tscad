@@ -1,4 +1,5 @@
-﻿import { Signal, observers } from "./signal";
+﻿import { Signal, observers, OptionalSignal } from "./signal";
+
 const debug = (...msg: any[]) => {
   // @ts-ignore
   if (import.meta.env.DEV) {
@@ -6,11 +7,17 @@ const debug = (...msg: any[]) => {
   }
 };
 
-export type ChildNode = BaseNode | string | (() => string);
-
-export class BaseNode {
+export type BaseNode = {
   el: HTMLElement;
-  childrenSet: Set<ChildNode>;
+  inner(first?: OptionalSignal<BaseNode | string>): BaseNode;
+  inner(...nodes: OptionalSignal<BaseNode>[]): BaseNode;
+};
+export type ChildNode = BaseNode | string | undefined;
+type AttributeValue = string | null | undefined;
+
+export class RNode implements BaseNode {
+  el: HTMLElement;
+  childrenSet: Set<OptionalSignal<ChildNode>>;
   unmountListeners: Array<() => void>;
   memoMap?: Map<string | number, ChildNode>;
 
@@ -24,7 +31,7 @@ export class BaseNode {
     this.el.remove();
     debug("unmounted");
     this.childrenSet.forEach((r) => {
-      if (r instanceof BaseNode) r.unmount();
+      if (r instanceof RNode) r.unmount();
     });
     this.unmountListeners.forEach((fn) => fn());
   }
@@ -34,7 +41,32 @@ export class BaseNode {
     return this;
   }
 
-  memo(key: string | number, fn: () => RNode | string) {
+  watch(
+    signals: Signal<unknown> | Signal<unknown>[],
+    fn: (n: RNode) => void,
+    now = true,
+  ) {
+    const register = (signal: Signal<unknown>) => {
+      const clear = signal.on(() => fn(this), now);
+      this.unmountListeners.push(clear);
+    };
+    if (Array.isArray(signals)) {
+      signals.forEach(register);
+    } else {
+      register(signals);
+    }
+    return this;
+  }
+
+  setInterval(fn: (n: BaseNode) => void, interval: number) {
+    const id = setInterval(() => {
+      fn(this);
+    }, interval);
+    this.unmountListeners.push(() => clearInterval(id));
+    return id;
+  }
+
+  memo(key: string | number, fn: () => BaseNode | string) {
     const localMemoMap = this.memoMap ?? new Map();
     if (this.memoMap === undefined) {
       this.memoMap = localMemoMap;
@@ -55,28 +87,57 @@ export class BaseNode {
     return newVal;
   }
 
-  inner(...newChildren: Array<ChildNode>) {
-    const newChildElements = newChildren.map((r) => {
-      if (typeof r === "string") {
-        return r;
-      } else if (typeof r === "function") {
-        return r();
+  private _innerResolveSignal(fn: () => ChildNode, i: number) {
+    let firstRun = true;
+    return this.createEffect(() => {
+      const child = fn();
+      let resolved: string | HTMLElement;
+      if (!child) {
+        resolved = "";
+      } else if (typeof child === "string") {
+        resolved = child;
       } else {
-        return r.el;
+        resolved = child.el;
       }
+      if (firstRun) {
+        firstRun = false;
+      } else {
+        if (typeof resolved === "string" && this.el.children.length <= 0) {
+          this.el.textContent = resolved;
+        } else {
+          this.el.children[i].replaceWith(resolved);
+        }
+      }
+      return resolved;
     });
+  }
+
+  inner(...newChildren: any[]) {
+    const newChildElements: Array<string | HTMLElement> = newChildren
+      .filter((s) => s)
+      .map((r, i) => {
+        if (r == null || typeof r === "string") {
+          return r ?? "";
+        } else if (typeof r === "function") {
+          return this._innerResolveSignal(r, i);
+        } else if (r instanceof Signal) {
+          return this._innerResolveSignal(() => r.get(), i);
+        } else {
+          return r.el;
+        }
+      });
     this.el.replaceChildren(...newChildElements);
     const newChildrenSet = new Set(newChildren);
     this.childrenSet.forEach((child) => {
-      if (!newChildrenSet.has(child) && child instanceof BaseNode) {
+      if (!newChildrenSet.has(child) && child instanceof RNode) {
         child.unmount();
       }
     });
     this.childrenSet = newChildrenSet;
-    return this;
+    return this as BaseNode;
   }
 
-  createEffect(fn: () => void) {
+  createEffect<T>(fn: () => T) {
     observers.push((signal) => {
       const clear = signal.on(fn);
       this.unmountListeners.push(clear);
@@ -85,13 +146,6 @@ export class BaseNode {
     observers.pop();
     return val;
   }
-}
-
-type AttributeValue = string | null | undefined;
-export class RNode extends BaseNode {
-  constructor(tag: string) {
-    super(tag);
-  }
 
   private _setAttr(key: string, val: AttributeValue) {
     const element = this.el;
@@ -99,7 +153,7 @@ export class RNode extends BaseNode {
       element.removeAttribute(key);
     } else if (val === undefined) {
       element.setAttribute(key, "");
-    } else if (typeof val === "string") {
+    } else {
       element.setAttribute(key, val);
     }
   }
@@ -191,7 +245,7 @@ export const h = (tag: string) => new RNode(tag);
 
 export const render = (
   element: HTMLElement | null,
-  ...nodes: Array<RNode | string>
+  ...nodes: Array<BaseNode | string>
 ) => {
   if (!element) throw "missing root element";
 

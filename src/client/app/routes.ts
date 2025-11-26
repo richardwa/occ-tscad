@@ -7,7 +7,7 @@ const router = new Router();
 
 router.addRoute("/", () => Title("Select File"));
 router.addRoute("/model-viewer/:file", (params) =>
-  hbox(CodePad(params.file), ModelViewer()),
+  hbox().inner(CodePad(params.file), ModelViewer()),
 );
 
 export { router };

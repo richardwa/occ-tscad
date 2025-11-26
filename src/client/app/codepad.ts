@@ -36,8 +36,8 @@ export const CodePad = (file: string) => {
     renderContents();
   })();
 
-  return vbox(
-    hbox(
+  return vbox().inner(
+    hbox().inner(
       Button().on("click", renderContents).inner("Render"),
       Button()
         .on("click", async () => {

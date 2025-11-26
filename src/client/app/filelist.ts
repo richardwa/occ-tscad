@@ -8,15 +8,12 @@ export const fileList = () => {
 
   const loadFileList = async (node: RNode) => {
     const files = await fetchPromise;
-    node.inner(
-      ...files
-        .sort()
-        .map((file) =>
-          ClickLink(file).on("click", () =>
-            router.navigate(`/model-viewer/${file}`),
-          ),
-        ),
+    const list = files.sort().map((file) =>
+      ClickLink()
+        .on("click", () => router.navigate(`/model-viewer/${file}`))
+        .inner(file),
     );
+    node.inner(...list);
   };
 
   return vbox()

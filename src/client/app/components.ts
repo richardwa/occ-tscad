@@ -3,12 +3,11 @@ import { h, RNode, Signal } from "../lib";
 export const Title = (s: string) =>
   h("div").css("font-weight", "bold").css("margin", "0.25rem 0").inner(s);
 
-export const Panel = (...children: Array<RNode | string>) =>
+export const Panel = () =>
   h("div")
     .css("border-radius", "5px")
     .css("padding", "0.5rem")
-    .css("background-color", "#424242")
-    .inner(...children);
+    .css("background-color", "#424242");
 
 export const Button = () =>
   h("button")
@@ -16,17 +15,11 @@ export const Button = () =>
     .css("padding", "0.25rem")
     .css("cursor", "pointer");
 
-export const NavLink = (href: string, ...children: Array<RNode | string>) =>
-  h("a")
-    .attr("href", href)
-    .attr("target", "_blank")
-    .inner(...children);
+export const NavLink = (href: string) =>
+  h("a").attr("href", href).attr("target", "_blank");
 
-export const ClickLink = (...children: Array<RNode | string>) =>
-  h("a")
-    .css("cursor", "pointer")
-    .css("color", "blue")
-    .inner(...children);
+export const ClickLink = () =>
+  h("a").css("cursor", "pointer").css("color", "blue");
 
 export const TextArea = (val: Signal<string>) =>
   h("textarea")

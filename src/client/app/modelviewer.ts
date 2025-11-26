@@ -7,8 +7,8 @@ import { modelUrl } from "./model-store";
 export const ModelViewer = () => {
   const initialDirection = signal("45deg 75deg auto");
 
-  return vbox(
-    hbox(
+  return vbox().inner(
+    hbox().inner(
       Button()
         .on("click", () => initialDirection.trigger())
         .inner("Reset View"),
