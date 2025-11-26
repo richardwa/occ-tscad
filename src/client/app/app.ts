@@ -1,12 +1,12 @@
-import { div, hbox, fragment } from "../lib";
+import { div, hbox, fragment, grid } from "../lib";
 import { fileList } from "./filelist";
 import { initOCC } from "./occ";
 import { router } from "./routes";
 
 export const App = () =>
-  div()
+  hbox()
     .css("padding", "0.5rem")
     .do(async (node) => {
       await initOCC();
-      node.inner(hbox().inner(fileList(), router.getRoot()));
+      node.inner(fileList(), router.getRoot());
     });

@@ -23,7 +23,7 @@ export const fileList = () => {
     .inner(
       div()
         .css("border-bottom", "1px solid gray")
-        .css("height", "calc(26px+ .25rem)")
+        .css("height", "calc(26px + .25rem)")
         .inner(Title("models")),
       vbox().css("padding-right", ".25rem").do(loadFileList),
     );

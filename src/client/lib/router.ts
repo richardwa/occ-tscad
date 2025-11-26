@@ -10,7 +10,7 @@ export class Router {
   private readonly root: BaseNode;
 
   constructor() {
-    this.root = h("div");
+    this.root = h("div").css("display", "contents");
     window.addEventListener("popstate", () => this.render());
   }
 

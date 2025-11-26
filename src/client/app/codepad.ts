@@ -40,18 +40,7 @@ export const CodePad = (file: string) => {
   return vbox()
     .css("height", "100%")
     .inner(
-      hbox().inner(
-        Button().on("click", renderContents).inner("Render"),
-        Button()
-          .on("click", async () => {
-            const url = modelUrl.get();
-            if (url) {
-              const stlUrl = await glbToObjUrl(url);
-              downloadBinaryFile(stlUrl, setExtension(file, "obj"));
-            }
-          })
-          .inner("Download Obj"),
-      ),
+      hbox().inner(Button().on("click", renderContents).inner("Render")),
       TextArea(fileContents)
         .css("width", "40rem")
         .css("height", "100%")
