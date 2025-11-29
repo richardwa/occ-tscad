@@ -9,7 +9,8 @@
     "prebuild": "bun run format",
     "build": "tsc && vite build",
     "prestart": "bun run build",
-    "start": "bun src/server/server.ts"
+    "start": "bun src/server/server.ts",
+    "render": "bun src/server/cli-render.ts"
   },
   "dependencies": {
     "@google/model-viewer": "^1.11.1",

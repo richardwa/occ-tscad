@@ -10,7 +10,7 @@ import {
   BRepAlgoAPI_Fuse_3,
   gp_Ax1_2,
 } from "opencascade.js";
-import { getOCC } from "../../client/app/occ";
+import { getOCC } from "./occ";
 
 const oc = getOCC();
 type Vec3 = [number, number, number];

@@ -1,6 +1,6 @@
 import { div, hbox, fragment, grid } from "../lib";
 import { fileList } from "./filelist";
-import { initOCC } from "./occ";
+import { initOCC } from "../../common/csg/occ";
 import { router } from "./routes";
 
 export const App = () =>

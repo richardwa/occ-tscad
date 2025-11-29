@@ -7,7 +7,9 @@ const router = new Router();
 
 router.addRoute("/", () => Title("Select File"));
 router.addRoute("/model-viewer/:file", (params) =>
-  hbox().css("flex-grow","1").inner(ModelViewer(params.file), CodePad(params.file)),
+  hbox()
+    .css("flex-grow", "1")
+    .inner(ModelViewer(params.file), CodePad(params.file)),
 );
 
 export { router };

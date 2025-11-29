@@ -70,6 +70,22 @@ export async function glbToStlObj(glbUrl: string): Promise<string> {
   return URL.createObjectURL(new Blob([stlString], { type: "model/stl" }));
 }
 
+export async function glbToOb(glbUrl: string): Promise<string> {
+  const { GLTFLoader } = await import(
+    "three/examples/jsm/loaders/GLTFLoader.js"
+  );
+  const { OBJExporter } = await import(
+    "three/examples/jsm/exporters/OBJExporter.js"
+  );
+  const loader = new GLTFLoader();
+  const gltf = await loader.loadAsync(glbUrl);
+
+  const exporter = new OBJExporter();
+  const objText = exporter.parse(gltf.scene); // OBJ string
+
+  return URL.createObjectURL(new Blob([objText], { type: "text/plain" }));
+}
+
 export async function glbToObjUrl(glbUrl: string): Promise<string> {
   const { GLTFLoader } = await import(
     "three/examples/jsm/loaders/GLTFLoader.js"

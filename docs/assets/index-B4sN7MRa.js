@@ -1,1 +1,129 @@
-import{g as _}from"./index-MTGs_1h9.js";const n=_(),g=n.TopAbs_ShapeEnum.TopAbs_EDGE;n.TopAbs_ShapeEnum.TopAbs_SHAPE;const p=n.ChFi3d_FilletShape.ChFi3d_Rational,o=new n.Message_ProgressRange_1,u=new n.gp_Ax1_2(new n.gp_Pnt_3(0,0,0),new n.gp_Dir_4(1,0,0)),S=new n.gp_Ax1_2(new n.gp_Pnt_3(0,0,0),new n.gp_Dir_4(0,1,0)),w=new n.gp_Ax1_2(new n.gp_Pnt_3(0,0,0),new n.gp_Dir_4(0,0,1));class l{constructor(e){this.shape=e}scale(e){const s=new n.gp_Trsf_1;s.SetScaleFactor(e);const t=new n.TopLoc_Location_2(s);return this.shape=this.shape.Moved(t,!1),this}translate([e,s,t]){const a=new n.gp_Trsf_1;a.SetTranslation_1(new n.gp_Vec_4(e,s,t));const i=new n.TopLoc_Location_2(a);return this.shape=this.shape.Moved(i,!1),this}_rotate(e,s){const t=new n.gp_Trsf_1,a=s/(2*Math.PI);return t.SetRotation_1(e,a),new n.BRepBuilderAPI_Transform_2(this.shape,t,!0).Shape()}rotate(e,s){const t=new n.gp_Ax1_2(new n.gp_Pnt_3(0,0,0),new n.gp_Dir_4(e[0],e[1],e[2]));return this.shape=this._rotate(t,s),this}rotateX(e){return this.shape=this._rotate(u,e),this}rotateY(e){return this.shape=this._rotate(S,e),this}rotateZ(e){return this.shape=this._rotate(w,e),this}_handleSectionEdges(e,s){const t=s.Shape(),a=new n.BRepFilletAPI_MakeFillet(t,p),i=s.SectionEdges();for(;!i.IsEmpty();){const h=i.First_1();if(i.RemoveFirst(),h.ShapeType()===n.TopAbs_ShapeEnum.TopAbs_EDGE){const d=n.TopoDS.Edge_1(h);a.Add_2(e.radius,d)}}return a.Build(o),a.Shape()}union(e){const s="target"in e?e:{radius:0,type:"fillet",target:e},t=new n.BRepAlgoAPI_Fuse_3(this.shape,s.target.shape,o);return t.Build(o),s.radius?this.shape=this._handleSectionEdges(s,t):this.shape=t.Shape(),this}cut(e){const s="target"in e?e:{radius:0,type:"fillet",target:e},t=new n.BRepAlgoAPI_Cut_3(this.shape,s.target.shape,o);return t.Build(o),s.radius?this.shape=this._handleSectionEdges(s,t):this.shape=t.Shape(),this}intersect(e){const s="target"in e?e:{radius:0,type:"fillet",target:e},t=new n.BRepAlgoAPI_Common_3(this.shape,s.target.shape,o);return t.Build(o),s.radius?this.shape=this._handleSectionEdges(s,t):this.shape=t.Shape(),this}doEdges(e){const s=new n.TopTools_IndexedMapOfShape_1;n.TopExp.MapShapes_1(this.shape,g,s);for(let t=1;t<=s.Extent();t++){const a=n.TopoDS.Edge_1(s.FindKey(t));e(a,t-1)}}fillet(e,s){const t=new n.BRepFilletAPI_MakeFillet(this.shape,p),a=s?new Set(s):void 0;return this.doEdges((i,h)=>{(!a||a.has(h))&&t.Add_2(e,i)}),t.Build(o),this.shape=t.Shape(),this}}const c=_();class A extends l{constructor(e){super(new c.BRepPrimAPI_MakeSphere_1(e).Shape())}}class E extends l{constructor(e,s,t,a=!0){super(new c.BRepPrimAPI_MakeBox_2(e,s,t).Shape()),a&&this.translate([-e/2,-s/2,-t/2])}}export{E as Box,A as Sphere};
+import { g as _ } from "./index-MTGs_1h9.js";
+const n = _(),
+  g = n.TopAbs_ShapeEnum.TopAbs_EDGE;
+n.TopAbs_ShapeEnum.TopAbs_SHAPE;
+const p = n.ChFi3d_FilletShape.ChFi3d_Rational,
+  o = new n.Message_ProgressRange_1(),
+  u = new n.gp_Ax1_2(new n.gp_Pnt_3(0, 0, 0), new n.gp_Dir_4(1, 0, 0)),
+  S = new n.gp_Ax1_2(new n.gp_Pnt_3(0, 0, 0), new n.gp_Dir_4(0, 1, 0)),
+  w = new n.gp_Ax1_2(new n.gp_Pnt_3(0, 0, 0), new n.gp_Dir_4(0, 0, 1));
+class l {
+  constructor(e) {
+    this.shape = e;
+  }
+  scale(e) {
+    const s = new n.gp_Trsf_1();
+    s.SetScaleFactor(e);
+    const t = new n.TopLoc_Location_2(s);
+    return ((this.shape = this.shape.Moved(t, !1)), this);
+  }
+  translate([e, s, t]) {
+    const a = new n.gp_Trsf_1();
+    a.SetTranslation_1(new n.gp_Vec_4(e, s, t));
+    const i = new n.TopLoc_Location_2(a);
+    return ((this.shape = this.shape.Moved(i, !1)), this);
+  }
+  _rotate(e, s) {
+    const t = new n.gp_Trsf_1(),
+      a = s / (2 * Math.PI);
+    return (
+      t.SetRotation_1(e, a),
+      new n.BRepBuilderAPI_Transform_2(this.shape, t, !0).Shape()
+    );
+  }
+  rotate(e, s) {
+    const t = new n.gp_Ax1_2(
+      new n.gp_Pnt_3(0, 0, 0),
+      new n.gp_Dir_4(e[0], e[1], e[2]),
+    );
+    return ((this.shape = this._rotate(t, s)), this);
+  }
+  rotateX(e) {
+    return ((this.shape = this._rotate(u, e)), this);
+  }
+  rotateY(e) {
+    return ((this.shape = this._rotate(S, e)), this);
+  }
+  rotateZ(e) {
+    return ((this.shape = this._rotate(w, e)), this);
+  }
+  _handleSectionEdges(e, s) {
+    const t = s.Shape(),
+      a = new n.BRepFilletAPI_MakeFillet(t, p),
+      i = s.SectionEdges();
+    for (; !i.IsEmpty(); ) {
+      const h = i.First_1();
+      if ((i.RemoveFirst(), h.ShapeType() === n.TopAbs_ShapeEnum.TopAbs_EDGE)) {
+        const d = n.TopoDS.Edge_1(h);
+        a.Add_2(e.radius, d);
+      }
+    }
+    return (a.Build(o), a.Shape());
+  }
+  union(e) {
+    const s = "target" in e ? e : { radius: 0, type: "fillet", target: e },
+      t = new n.BRepAlgoAPI_Fuse_3(this.shape, s.target.shape, o);
+    return (
+      t.Build(o),
+      s.radius
+        ? (this.shape = this._handleSectionEdges(s, t))
+        : (this.shape = t.Shape()),
+      this
+    );
+  }
+  cut(e) {
+    const s = "target" in e ? e : { radius: 0, type: "fillet", target: e },
+      t = new n.BRepAlgoAPI_Cut_3(this.shape, s.target.shape, o);
+    return (
+      t.Build(o),
+      s.radius
+        ? (this.shape = this._handleSectionEdges(s, t))
+        : (this.shape = t.Shape()),
+      this
+    );
+  }
+  intersect(e) {
+    const s = "target" in e ? e : { radius: 0, type: "fillet", target: e },
+      t = new n.BRepAlgoAPI_Common_3(this.shape, s.target.shape, o);
+    return (
+      t.Build(o),
+      s.radius
+        ? (this.shape = this._handleSectionEdges(s, t))
+        : (this.shape = t.Shape()),
+      this
+    );
+  }
+  doEdges(e) {
+    const s = new n.TopTools_IndexedMapOfShape_1();
+    n.TopExp.MapShapes_1(this.shape, g, s);
+    for (let t = 1; t <= s.Extent(); t++) {
+      const a = n.TopoDS.Edge_1(s.FindKey(t));
+      e(a, t - 1);
+    }
+  }
+  fillet(e, s) {
+    const t = new n.BRepFilletAPI_MakeFillet(this.shape, p),
+      a = s ? new Set(s) : void 0;
+    return (
+      this.doEdges((i, h) => {
+        (!a || a.has(h)) && t.Add_2(e, i);
+      }),
+      t.Build(o),
+      (this.shape = t.Shape()),
+      this
+    );
+  }
+}
+const c = _();
+class A extends l {
+  constructor(e) {
+    super(new c.BRepPrimAPI_MakeSphere_1(e).Shape());
+  }
+}
+class E extends l {
+  constructor(e, s, t, a = !0) {
+    (super(new c.BRepPrimAPI_MakeBox_2(e, s, t).Shape()),
+      a && this.translate([-e / 2, -s / 2, -t / 2]));
+  }
+}
+export { E as Box, A as Sphere };

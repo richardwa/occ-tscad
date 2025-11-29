@@ -9,7 +9,7 @@ import {
   ProjLib_PrjResolve,
   BRepAlgoAPI_Fuse_3,
 } from "opencascade.js";
-import { getOCC } from "../../client/app/occ";
+import { getOCC } from "./occ";
 
 const oc = getOCC();
 
