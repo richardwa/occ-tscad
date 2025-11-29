@@ -1,7 +1,7 @@
 import { hbox, vbox, div, fragment, grid } from "../lib/base-components";
 import { Button, NumberInput, Title } from "./components";
 import { signal, h, downloadBinaryFile } from "../lib";
-import { renderToObj, renderToGLB } from "../../common/csg/render";
+import { renderToSTL, stlToObj, renderToGLB } from "../../common/csg/render";
 import { setExtension } from "../../common/util";
 import "@google/model-viewer";
 import { modelShape } from "./model-store";
@@ -20,10 +20,11 @@ export const ModelViewer = (file: string) => {
           .on("click", async () => {
             const model = modelShape.get();
             if (!model) return;
-            const data = renderToObj(model.shape);
+            const stlBuffer = renderToSTL(model.shape);
+            const objBuffer = stlToObj(stlBuffer);
             const url = URL.createObjectURL(
               // @ts-ignore
-              new Blob([data.buffer], { type: "text/plain" }),
+              new Blob([objBuffer.buffer], { type: "text/plain" }),
             );
             downloadBinaryFile(url, setExtension(file, "obj"));
           })

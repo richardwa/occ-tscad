@@ -3,7 +3,7 @@ import path from "path";
 import { initOCC } from "../common/csg/occ";
 import {
   renderToGLB,
-  renderToObj,
+  stlToObj,
   renderToSTL,
   renderToStep,
 } from "../common/csg/render";
@@ -35,13 +35,13 @@ const renderFile = async (file: string) => {
   const shape = main().shape;
   let buffer, realPath;
 
-  buffer = renderToObj(shape);
-  realPath = `./target/${filename}.obj`;
+  buffer = renderToSTL(shape);
+  realPath = `./target/${filename}.stl`;
   fs.writeFileSync(realPath, Buffer.from(buffer));
   console.log("file saved to:", realPath);
 
-  buffer = renderToSTL(shape);
-  realPath = `./target/${filename}.stl`;
+  buffer = stlToObj(buffer);
+  realPath = `./target/${filename}.obj`;
   fs.writeFileSync(realPath, Buffer.from(buffer));
   console.log("file saved to:", realPath);
 

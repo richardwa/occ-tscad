@@ -71,10 +71,9 @@ export const renderToGLB = (
   return oc.FS.readFile("./file.glb", { encoding: "binary" });
 };
 
-export const renderToObj = (
-  shape: TopoDS_Shape,
+export const stlToObj = (
+  stlBuffer: Uint8Array<ArrayBufferLike>,
 ): Uint8Array<ArrayBufferLike> => {
-  const stlBuffer = renderToSTL(shape);
   const stlText = new TextDecoder().decode(stlBuffer);
   const lines = stlText.split(/\r?\n/);
 
