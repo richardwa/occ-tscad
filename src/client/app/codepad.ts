@@ -1,13 +1,7 @@
 import { hbox, vbox, div, fragment, grid } from "../lib/base-components";
 import { Button, TextArea, Title } from "./components";
 import { signal, h, downloadBinaryFile } from "../lib";
-import { modelUrl } from "./model-store";
-import {
-  shapeToGLB,
-  glbToStlUrl,
-  glbToObjUrl,
-} from "../../common/csg/shapeToUrl";
-import { setExtension } from "../../common/util";
+import { modelShape } from "./model-store";
 import { getOCC } from "../../common/csg/occ";
 
 export const CodePad = (file: string) => {
@@ -24,8 +18,7 @@ export const CodePad = (file: string) => {
     }
     const oc = getOCC();
     const result = main(oc);
-    const url = shapeToGLB(oc, result.shape);
-    modelUrl.set(url);
+    modelShape.set(result);
   };
 
   (async () => {

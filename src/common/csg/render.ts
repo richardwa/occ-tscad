@@ -74,59 +74,49 @@ export const renderToGLB = (
 export const renderToObj = (
   shape: TopoDS_Shape,
 ): Uint8Array<ArrayBufferLike> => {
-  const oc = getOCC();
-
-  // Step 1: Triangulate the shape (required for OBJ)
-  // Linear deflection = 0.1, angular deflection ~10 degrees
-  new oc.BRepMesh_IncrementalMesh_2(
-    shape,
-    0.1, // linear deflection
-    true, // relative
-    Math.PI / 18, // angular deflection
-    false, // in parallel
-  );
+  const stlBuffer = renderToSTL(shape);
+  const stlText = new TextDecoder().decode(stlBuffer);
+  const lines = stlText.split(/\r?\n/);
 
   const vertices: string[] = [];
   const faces: string[] = [];
+  let vertexIndex = 1;
 
-  // Step 2: Traverse faces and collect triangulation
-  const explorer = new oc.TopExp_Explorer_2(
-    shape,
-    oc.TopAbs_ShapeEnum.TopAbs_FACE as typeof oc.TopAbs_ShapeEnum,
-    oc.TopAbs_ShapeEnum.TopAbs_EDGE as typeof oc.TopAbs_ShapeEnum,
-  );
-  while (explorer.More()) {
-    const face = oc.TopoDS.Face_1(explorer.Current());
-    const triangulationHandle = oc.BRep_Tool.Triangulation(
-      face,
-      new oc.TopLoc_Location_1(),
-      1, // Poly_Triagulation
-    );
+  // Map to store vertex positions as strings to optionally deduplicate
+  const vertexMap = new Map<string, number>();
 
-    if (!triangulationHandle.IsNull()) {
-      const triangulation = triangulationHandle.get();
-      const numNodes = triangulation.NbNodes();
-      const numTriangles = triangulation.NbTriangles();
+  let currentFace: number[] = [];
 
-      // Add vertices
-      for (let i = 1; i <= numNodes; i++) {
-        const p = triangulation.Node(i);
-        vertices.push(`v ${p.X()} ${p.Y()} ${p.Z()}`);
+  for (const line of lines) {
+    const trimmed = line.trim();
+
+    if (trimmed.startsWith("vertex")) {
+      // Parse vertex coordinates
+      const parts = trimmed.split(/\s+/);
+      const x = parseFloat(parts[1]);
+      const y = parseFloat(parts[2]);
+      const z = parseFloat(parts[3]);
+
+      const key = `${x} ${y} ${z}`;
+      let index: number;
+
+      if (vertexMap.has(key)) {
+        index = vertexMap.get(key)!;
+      } else {
+        vertices.push(`v ${x} ${y} ${z}`);
+        index = vertexIndex++;
+        vertexMap.set(key, index);
       }
 
-      // Add faces
-      for (let i = 1; i <= numTriangles; i++) {
-        const t = triangulation.Triangle(i);
-        faces.push(`f ${t.Value(1)} ${t.Value(2)} ${t.Value(3)}`);
+      currentFace.push(index);
+    } else if (trimmed.startsWith("endfacet")) {
+      if (currentFace.length === 3) {
+        faces.push(`f ${currentFace[0]} ${currentFace[1]} ${currentFace[2]}`);
       }
+      currentFace = [];
     }
-
-    explorer.Next();
   }
 
-  // Step 3: Combine vertices and faces into OBJ format string
   const objString = [...vertices, ...faces].join("\n");
-
-  // Step 4: Convert string to Uint8Array buffer
   return new TextEncoder().encode(objString);
 };

@@ -1,14 +1,10 @@
 import { hbox, vbox, div, fragment, grid } from "../lib/base-components";
 import { Button, NumberInput, Title } from "./components";
 import { signal, h, downloadBinaryFile } from "../lib";
-import {
-  shapeToGLB,
-  glbToStlUrl,
-  glbToObjUrl,
-} from "../../common/csg/shapeToUrl";
+import { renderToObj, renderToGLB } from "../../common/csg/render";
 import { setExtension } from "../../common/util";
 import "@google/model-viewer";
-import { modelUrl } from "./model-store";
+import { modelShape } from "./model-store";
 
 export const ModelViewer = (file: string) => {
   const initialDirection = signal("45deg 75deg auto");
@@ -22,11 +18,14 @@ export const ModelViewer = (file: string) => {
           .inner("Reset View"),
         Button()
           .on("click", async () => {
-            const url = modelUrl.get();
-            if (url) {
-              const stlUrl = await glbToObjUrl(url);
-              downloadBinaryFile(stlUrl, setExtension(file, "obj"));
-            }
+            const shape = modelShape.get();
+            if (!shape) return;
+            const data = renderToObj(shape);
+            const url = URL.createObjectURL(
+              // @ts-ignore
+              new Blob([data.buffer], { type: "text/plain" }),
+            );
+            downloadBinaryFile(url, setExtension(file, "obj"));
           })
           .inner("Download Obj"),
       ),
@@ -34,7 +33,16 @@ export const ModelViewer = (file: string) => {
         .attr("camera-controls")
         .attr("interaction-prompt", "none")
         .attr("camera-orbit", initialDirection)
-        .attr("src", modelUrl)
+        .attr("src", () => {
+          const shape = modelShape.get();
+          if (!shape) return;
+          const glbFile = renderToGLB(shape);
+          const url = URL.createObjectURL(
+            // @ts-ignore
+            new Blob([glbFile.buffer], { type: "model/gltf-binary" }),
+          );
+          return url;
+        })
         .css("height", "100%")
         .css("width", "100%"),
     );
