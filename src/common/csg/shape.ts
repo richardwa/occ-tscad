@@ -10,9 +10,9 @@ import {
   BRepAlgoAPI_Fuse_3,
   gp_Ax1_2,
 } from "opencascade.js";
-import { getOCC } from "./occ";
+import { initOCC } from "./occ";
 
-const oc = getOCC();
+const oc = await initOCC();
 
 const TopAbs_EDGE: TopAbs_ShapeEnum = oc.TopAbs_ShapeEnum.TopAbs_EDGE as any;
 const TopAbs_SHAPE: TopAbs_ShapeEnum = oc.TopAbs_ShapeEnum.TopAbs_SHAPE as any;

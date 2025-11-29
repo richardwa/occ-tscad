@@ -1,9 +1,9 @@
 import { TopoDS_Shape } from "opencascade.js";
 import { Shape } from "./shape";
 import { Shape3 } from "./shape3";
-import { getOCC } from "./occ";
+import { initOCC } from "./occ";
 
-const oc = getOCC();
+const oc = await initOCC();
 
 export class Shape2 extends Shape {
   extrude(len: number | Vec3) {
