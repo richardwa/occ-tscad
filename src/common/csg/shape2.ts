@@ -1,27 +1,46 @@
-import {
-  OpenCascadeInstance,
-  TopoDS_Shape,
-  TopoDS_Edge,
-  TopTools_ListOfShape,
-  TopAbs_ShapeEnum,
-  ChFi3d_FilletShape,
-  Message_ProgressRange,
-  ProjLib_PrjResolve,
-  BRepAlgoAPI_Fuse_3,
-} from "opencascade.js";
+import { TopoDS_Shape } from "opencascade.js";
+import { Shape } from "./shape";
+import { Shape3 } from "./shape3";
 import { getOCC } from "./occ";
 
 const oc = getOCC();
 
-const TopAbs_EDGE: TopAbs_ShapeEnum = oc.TopAbs_ShapeEnum.TopAbs_EDGE as any;
-const TopAbs_SHAPE: TopAbs_ShapeEnum = oc.TopAbs_ShapeEnum.TopAbs_SHAPE as any;
-const ChFi3d_Rational: ChFi3d_FilletShape = oc.ChFi3d_FilletShape
-  .ChFi3d_Rational as any;
-const progress = new oc.Message_ProgressRange_1();
+export class Shape2 extends Shape {
+  extrude(len: number | Vec3) {
+    // Create a vector in Z direction
+    const v = typeof len === "number" ? [0, 0, len] : len;
+    const extDir = new oc.gp_Vec_4(v[0], v[1], v[2]);
 
-export class Shape2 {
-  shape: TopoDS_Shape;
-  constructor(shape: TopoDS_Shape) {
-    this.shape = shape;
+    // Extrude the shape along the vector
+    const prism = new oc.BRepPrimAPI_MakePrism_1(
+      this.shape,
+      extDir,
+      false,
+      false,
+    );
+
+    // Return a new Shape2 object with the extruded shape
+    return new Shape3(prism.Shape());
+  }
+
+  // Rotate around an axis by angle (in degrees)
+  revolve(angle: number) {
+    const origin = new oc.gp_Pnt_3(0, 0, 0); // center of rotation
+    const zDir = new oc.gp_Dir_4(0, 1, 0); // axis direction
+    const axis = new oc.gp_Ax1_2(origin, zDir);
+
+    // Create revolved shape
+    const revol = new oc.BRepPrimAPI_MakeRevol_1(
+      this.shape,
+      axis,
+      angle,
+      false,
+    );
+    return new Shape3(revol.Shape());
+  }
+
+  sweep(path: TopoDS_Shape) {
+    const pipe = new oc.BRepOffsetAPI_MakePipe_1(path, this.shape);
+    return new Shape3(pipe.Shape());
   }
 }

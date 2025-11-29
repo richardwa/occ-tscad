@@ -5,9 +5,10 @@ import { renderToSTL, stlToObj, renderToGLB } from "../../common/csg/render";
 import { setExtension } from "../../common/util";
 import "@google/model-viewer";
 import { modelShape } from "./model-store";
+import { Shape3 } from "../../common/csg/shape3";
 
 export const ModelViewer = (file: string) => {
-  const initialDirection = signal("45deg 75deg auto");
+  const initialDirection = signal("45deg auto auto");
 
   return vbox()
     .css("flex-grow", "1")
@@ -34,17 +35,21 @@ export const ModelViewer = (file: string) => {
         .attr("camera-controls")
         .attr("interaction-prompt", "none")
         .attr("camera-orbit", initialDirection)
-        .attr("src", () => {
-          const model = modelShape.get();
+        .css("height", "100%")
+        .css("width", "100%")
+        .watch(modelShape, async (node) => {
+           const model = modelShape.get();
           if (!model) return;
-          const glbFile = renderToGLB(model.shape);
+          const rotate = new Shape3(model.shape);
+          rotate.rotateY(-90);
+          rotate.rotateZ(-90);
+          const glbFile = renderToGLB(rotate.shape);
           const url = URL.createObjectURL(
             // @ts-ignore
             new Blob([glbFile.buffer], { type: "model/gltf-binary" }),
           );
-          return url;
+          // @ts-ignore
+          node.el.src = url;
         })
-        .css("height", "100%")
-        .css("width", "100%"),
     );
 };

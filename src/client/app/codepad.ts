@@ -9,7 +9,8 @@ export const CodePad = (file: string) => {
   console.log(file);
 
   const renderContents = async () => {
-    const { Sphere, Box } = await import("../../common/csg");
+    const { Sphere, Box, Circle, Cone, Cylinder, Polygon, Torus, Wedge } =
+      await import("../../common/csg");
     const contents = fileContents.get();
     const main = eval(contents + "\n try{main;}catch{}");
     if (!main) {

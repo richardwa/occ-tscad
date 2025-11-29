@@ -47,7 +47,7 @@ export class Wedge extends Shape3 {
 }
 
 export class Circle extends Shape2 {
-  constructor(radius = 50) {
+  constructor(radius: number) {
     const center = new oc.gp_Pnt_3(0, 0, 0); // center of circle
     const normal = new oc.gp_Dir_4(0, 0, 1); // Z axis normal
     const xDir = new oc.gp_Dir_4(1, 0, 0); // X axis direction
