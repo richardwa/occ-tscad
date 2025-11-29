@@ -1,4 +1,4 @@
-import { TopoDS_Shape } from "opencascade.js";
 import { signal } from "../lib";
+import { Shape3 } from "../../common/csg/shape3";
 
-export const modelShape = signal<TopoDS_Shape>();
+export const modelShape = signal<Shape3>();

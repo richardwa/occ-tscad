@@ -18,9 +18,9 @@ export const ModelViewer = (file: string) => {
           .inner("Reset View"),
         Button()
           .on("click", async () => {
-            const shape = modelShape.get();
-            if (!shape) return;
-            const data = renderToObj(shape);
+            const model = modelShape.get();
+            if (!model) return;
+            const data = renderToObj(model.shape);
             const url = URL.createObjectURL(
               // @ts-ignore
               new Blob([data.buffer], { type: "text/plain" }),
@@ -34,9 +34,9 @@ export const ModelViewer = (file: string) => {
         .attr("interaction-prompt", "none")
         .attr("camera-orbit", initialDirection)
         .attr("src", () => {
-          const shape = modelShape.get();
-          if (!shape) return;
-          const glbFile = renderToGLB(shape);
+          const model = modelShape.get();
+          if (!model) return;
+          const glbFile = renderToGLB(model.shape);
           const url = URL.createObjectURL(
             // @ts-ignore
             new Blob([glbFile.buffer], { type: "model/gltf-binary" }),
