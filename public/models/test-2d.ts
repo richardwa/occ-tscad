@@ -1,7 +1,7 @@
-import { Box, Polygon } from "../../src/common/csg";
+import { box, poly } from "../../src/common/csg";
 
 export const main = () =>
-  new Polygon([
+  poly([
     [-1, -1],
     [1, -1],
     [1, 1],

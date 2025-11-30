@@ -1,3 +1,3 @@
-import { Box, Sphere, Circle } from "../../src/common/csg";
+import { box, sphere, circle } from "../../src/common/csg";
 
-export const main = () => new Circle(1).translate([0, 5, 0]).revolveX(275);
+export const main = () => circle(1).translate([0, 5, 0]).revolveX(275);
