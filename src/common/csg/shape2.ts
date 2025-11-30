@@ -24,9 +24,9 @@ export class Shape2 extends Shape {
   }
 
   // Rotate around an axis by angle (in degrees)
-  revolve(angle: number) {
+  revolve(direction: Vec3, angle: number) {
     const origin = new oc.gp_Pnt_3(0, 0, 0); // center of rotation
-    const zDir = new oc.gp_Dir_4(0, 1, 0); // axis direction
+    const zDir = new oc.gp_Dir_4(...direction); // axis direction
     const axis = new oc.gp_Ax1_2(origin, zDir);
 
     // Create revolved shape
@@ -37,6 +37,17 @@ export class Shape2 extends Shape {
       false,
     );
     return new Shape3(revol.Shape());
+  }
+
+  // Rotate around an axis by angle (in degrees)
+  revolveX(angle: number) {
+    return this.revolve([1, 0, 0], angle);
+  }
+  revolveY(angle: number) {
+    return this.revolve([0, 1, 0], angle);
+  }
+  revolveZ(angle: number) {
+    return this.revolve([0, 0, 1], angle);
   }
 
   sweep(path: TopoDS_Shape) {

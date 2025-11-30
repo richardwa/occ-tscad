@@ -37,9 +37,9 @@ export const ModelViewer = (file: string) => {
         .css("height", "100%")
         .css("width", "100%")
         .watch(modelShape, async (node) => {
-           const model = modelShape.get();
+          const model = modelShape.get();
           if (!model) return;
-          const { Shape3 } = await import( "../../common/csg/shape3");
+          const { Shape3 } = await import("../../common/csg/shape3");
           const rotate = new Shape3(model.shape);
           rotate.rotateY(-90);
           rotate.rotateZ(-90);
@@ -50,6 +50,6 @@ export const ModelViewer = (file: string) => {
           );
           // @ts-ignore
           node.el.src = url;
-        })
+        }),
     );
 };
