@@ -62,13 +62,11 @@ export class Circle extends Shape2 {
 
 export class Polygon extends Shape2 {
   constructor(points: Vec2[], fillets?: number[]) {
-
-
     if (points.length < 3) {
       throw new Error("Polygon needs at least 3 points");
     }
 
-    const mkWire = new oc.BRepBuilderAPI_MakePolygon();
+    const mkWire = new oc.BRepBuilderAPI_MakePolygon_1();
 
     // Add all points
     for (const [x, y] of points) {
