@@ -32,12 +32,6 @@ const axis_Z = new oc.gp_Ax1_2(
   new oc.gp_Dir_4(0, 0, 1),
 );
 
-export type WithRadius<T> = {
-  radius: number;
-  type?: "fillet" | "chamfer";
-  target: T;
-};
-
 export class Shape {
   shape: TopoDS_Shape;
   constructor(shape: TopoDS_Shape) {
