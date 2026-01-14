@@ -4,6 +4,11 @@ import { signal, h, downloadBinaryFile } from "../lib";
 import { modelShape } from "./model-store";
 import { getOCC } from "../../common/csg/occ";
 
+// check for github pages
+const baseContext = document.location.pathname.includes("occ-tscad")
+  ? "/occ-tscad"
+  : "";
+
 export const CodePad = (file: string) => {
   const fileContents = signal("");
   console.log(file);
@@ -23,7 +28,7 @@ export const CodePad = (file: string) => {
   };
 
   (async () => {
-    const resp = await fetch(`/models/${file}`);
+    const resp = await fetch(`${baseContext}/models/${file}`);
     let contents = await resp.text();
     // remove imports
     contents = contents.replace(/^\s*import\s.*?;[\r\n]*/gm, "");
