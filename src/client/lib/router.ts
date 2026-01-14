@@ -5,6 +5,11 @@ type Route = {
   component: (params: Record<string, string>) => BaseNode;
 };
 
+// check for github pages
+const baseContext = document.location.pathname.includes("occ-tscad")
+  ? "/occ-tscad"
+  : "";
+
 export class Router {
   private routes: Route[] = [];
   private readonly root: BaseNode;
@@ -27,7 +32,7 @@ export class Router {
   }
 
   navigate(path: string) {
-    history.pushState({}, "", path);
+    history.pushState({}, "", baseContext + path);
     this.render();
   }
 
@@ -41,7 +46,7 @@ export class Router {
         return "([^/]+)";
       });
 
-      const regex = new RegExp(`^${regexPath}$`);
+      const regex = new RegExp(`^${baseContext}${regexPath}$`);
       const match = pathname.match(regex);
 
       if (match) {
