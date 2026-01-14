@@ -1,7 +1,7 @@
-import { Box, Sphere } from "../../src/common/csg";
+import { box, sphere, circle } from "../../src/common/csg";
 
 export const main = () =>
-  new Box(2, 2, 2).intersect({
+  box(2, 2, 2).intersect({
     radius: 0.2,
-    target: new Box(2, 2, 2).translate([1, 1, 1]),
+    target: box(2, 2, 2).translate([1, 1, 1]),
   });

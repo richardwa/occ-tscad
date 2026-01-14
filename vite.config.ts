@@ -13,6 +13,7 @@ const expressPlugin = () => ({
 });
 
 export default defineConfig({
+  base: "./",
   publicDir: path.resolve(__dirname, "public"),
   server: {
     port: 5177,

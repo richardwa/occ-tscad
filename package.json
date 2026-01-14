@@ -9,6 +9,7 @@
     "prebuild": "bun run format",
     "build": "tsc && vite build",
     "prestart": "bun run build",
+    "publish":"rm -rf docs; mv dist docs;",
     "start": "bun src/server/server.ts",
     "render": "bun src/server/cli-render.ts"
   },
