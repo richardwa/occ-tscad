@@ -35,8 +35,6 @@ export const ModelViewer = (file: string) => {
         .attr("camera-controls")
         .attr("interaction-prompt", "none")
         .attr("camera-orbit", initialDirection)
-        .css("height", "100%")
-        .css("width", "100%")
         .watch(modelShape, async (node) => {
           const model = modelShape.get();
           if (!model) return;
