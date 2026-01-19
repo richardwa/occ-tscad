@@ -16,7 +16,8 @@
   "dependencies": {
     "@google/model-viewer": "^1.11.1",
     "express": "^5.1.0",
-    "opencascade.js": "2.0.0-beta.c301f5e"
+    "opencascade.js": "2.0.0-beta.c301f5e",
+    "solid-vanilla": "github:richardwa/solid-vanilla"
   },
   "devDependencies": {
     "@types/express": "types/express",

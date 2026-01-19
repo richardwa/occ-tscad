@@ -1,8 +1,8 @@
-import { hbox, vbox, div, fragment, grid } from "../lib/base-components";
+import { hbox, vbox, div, fragment, grid, signal, h } from "solid-vanilla";
 import { Button, TextArea, Title } from "./components";
-import { signal, h, downloadBinaryFile } from "../lib";
+import { downloadBinaryFile } from "./util";
 import { modelShape } from "./model-store";
-import { getOCC } from "../../common/csg/occ";
+import { getOCC } from "../common/csg/occ";
 
 // check for github pages
 const baseContext = document.location.pathname.includes("occ-tscad")
@@ -15,7 +15,7 @@ export const CodePad = (file: string) => {
 
   const renderContents = async () => {
     const { sphere, box, circle, cone, cylinder, poly, torus, wedge } =
-      await import("../../common/csg");
+      await import("../common/csg");
     const contents = fileContents.get();
     const main = eval(contents + "\n try{main;}catch{}");
     if (!main) {

@@ -1,5 +1,5 @@
-import { fragment, h, vbox, div, signal, RNode } from "../lib";
-import { fetchJson } from "../../common/interface";
+import { fragment, h, vbox, div, signal, RNode } from "solid-vanilla";
+import { fetchJson } from "../common/interface";
 import { ClickLink, Title } from "./components";
 import { router } from "./routes";
 
