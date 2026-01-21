@@ -3,27 +3,23 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "bin": {
+    "tscad-render": "bin/cli-render.ts"
+  },
+  "main": "./src",
   "scripts": {
-    "dev": "vite",
-    "format": "bun x prettier -w *.json *.ts ./src ./public",
-    "prebuild": "bun run format",
-    "build": "tsc && vite build",
-    "prestart": "bun run build",
-    "publish": "rm -rf docs; mv dist docs;",
-    "start": "bun src/server/server.ts",
-    "render": "bun src/server/cli-render.ts"
+    "format": "bun x prettier -w .",
+    "render": "bun bin/cli-render.ts"
   },
   "dependencies": {
     "@google/model-viewer": "^1.11.1",
     "express": "^5.1.0",
-    "opencascade.js": "2.0.0-beta.c301f5e",
-    "solid-vanilla": "github:richardwa/solid-vanilla"
+    "opencascade.js": "2.0.0-beta.c301f5e"
   },
   "devDependencies": {
     "@types/express": "types/express",
     "@types/three": "^0.181.0",
     "prettier": "^3.6.2",
-    "typescript": "~5.9.3",
-    "vite": "^7.2.2"
+    "typescript": "~5.9.3"
   }
 }
