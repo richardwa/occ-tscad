@@ -1,0 +1,20 @@
+{
+  "name": "occ-tscad-server",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "format": "bun x prettier .",
+    "prebuild": "bun run format",
+    "build": "tsc",
+    "start":"tscad-server src"
+  },
+  "dependencies": {
+    "occ-tscad": "file:../occ-tscad",
+    "occ-tscad-view": "file:../occ-tscad-view"
+  },
+  "devDependencies": {
+    "prettier": "^3.6.2",
+    "typescript": "~5.9.3"
+  }
+}
