@@ -1,4 +1,4 @@
-import { box, poly } from "../../src/common/csg";
+import { box, poly } from "occ-tscad-core";
 
 export const main = () =>
   poly([

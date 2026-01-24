@@ -1,6 +1,7 @@
 import { OpenCascadeInstance } from "opencascade.js";
 import { initOCC } from "./occ";
 import { Shape2 } from "./shape2";
+import { Vec2 } from "./util";
 
 const oc = await initOCC();
 

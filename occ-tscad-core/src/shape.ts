@@ -11,6 +11,7 @@ import {
   gp_Ax1_2,
 } from "opencascade.js";
 import { initOCC } from "./occ";
+import { Vec3 } from "./util";
 
 const oc = await initOCC();
 

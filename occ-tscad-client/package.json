@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@google/model-viewer": "^1.11.1",
+    "solid-vanilla": "github:richardwa/solid-vanilla",
     "occ-tscad-core": "file:../occ-tscad-core"
   },
   "devDependencies": {

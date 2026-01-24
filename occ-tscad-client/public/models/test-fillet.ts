@@ -1,4 +1,4 @@
-import { box, sphere, circle } from "../../src/common/csg";
+import { box, sphere, circle } from "occ-tscad-core";
 
 export const main = () =>
   box(2, 2, 2).union({

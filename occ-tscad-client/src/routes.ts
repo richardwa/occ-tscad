@@ -1,4 +1,4 @@
-import { Router, div, hbox, grid, fragment } from "../lib";
+import { Router, div, hbox, grid, fragment } from "solid-vanilla";
 import { ModelViewer } from "./modelviewer";
 import { Title } from "./components";
 import { CodePad } from "./codepad";

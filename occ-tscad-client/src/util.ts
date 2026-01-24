@@ -1,3 +1,11 @@
+export function setExtension(filename: string, newExt: string): string {
+  // Remove existing extension if any
+  const baseName = filename.replace(/\.[^/.]+$/, "");
+  // Ensure newExt doesn't have a leading dot
+  const cleanExt = newExt.startsWith(".") ? newExt.slice(1) : newExt;
+  return `${baseName}.${cleanExt}`;
+}
+
 export function downloadBinaryFile(internalUrl: string, fileName: string) {
   // Create a download link
   const link = document.createElement("a");

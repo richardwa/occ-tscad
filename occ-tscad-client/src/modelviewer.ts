@@ -1,10 +1,10 @@
-import { hbox, vbox, div, fragment, grid } from "../lib/base-components";
+import { hbox, vbox, div, fragment, grid } from "solid-vanilla";
 import { Button, NumberInput, Title } from "./components";
-import { signal, h, downloadBinaryFile } from "../lib";
-import { renderToSTL, stlToObj, renderToGLB } from "../../common/csg/render";
-import { setExtension } from "../../common/util";
-import "@google/model-viewer";
+import { signal, h } from "solid-vanilla";
+import { renderToSTL, stlToObj, renderToGLB } from "occ-tscad-core";
 import { modelShape } from "./model-store";
+import { downloadBinaryFile, setExtension } from "./util";
+import "@google/model-viewer";
 
 export const ModelViewer = (file: string) => {
   const initialDirection = signal("45deg auto auto");
@@ -39,7 +39,7 @@ export const ModelViewer = (file: string) => {
         .watch(modelShape, async (node) => {
           const model = modelShape.get();
           if (!model) return;
-          const { Shape3 } = await import("../../common/csg/shape3");
+          const { Shape3 } = await import("occ-tscad-core");
           const rotate = new Shape3(model.shape);
           rotate.rotateY(-90);
           rotate.rotateZ(-90);

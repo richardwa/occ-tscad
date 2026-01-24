@@ -1,4 +1,4 @@
-import { render } from "./lib";
-import { App } from "./app/app";
+import { render } from "solid-vanilla";
+import { App } from "./app";
 
 render(document.getElementById("app"), App());

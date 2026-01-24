@@ -1,4 +1,4 @@
-import { box, sphere } from "../../src/common/csg";
+import { box, sphere } from "occ-tscad-core";
 
 export const main = () =>
   sphere(0.5)

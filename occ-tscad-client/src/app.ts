@@ -1,4 +1,4 @@
-import { div, hbox, fragment, grid } from "../lib";
+import { div, hbox, fragment, grid } from "solid-vanilla";
 import { fileList } from "./filelist";
 import { initOCC } from "occ-tscad-core";
 import { router } from "./routes";

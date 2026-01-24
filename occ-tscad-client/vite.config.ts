@@ -1,6 +1,5 @@
 import path from "path";
-import { defineConfig, ViteDevServer } from "vite";
-
+import { defineConfig } from "vite";
 
 export default defineConfig({
   base: "./",
