@@ -3,18 +3,27 @@ import { ClickLink, Title } from "./components";
 import { router } from "./routes";
 
 // @ts-ignore
-const models = import.meta.glob("../public/models/*.ts", { eager: true });
+const models = import.meta.glob("../public/models/**/*.ts", { eager: true });
+
+const getFiles = async (): Promise<string[]> => {
+  try {
+    // try to get directory listing
+    const resp = await fetch("/models");
+    return await resp.json();
+  } catch {
+    // fallback to statically defined list of files (for vite and github pages)
+    return Object.keys(models).map(file => file.substring('../public/models/'.length));
+  }
+};
 
 export const fileList = () => {
   const loadFileList = async (node: RNode) => {
-    const list = Object.keys(models)
-      .sort()
-      .map((filePath) => {
-        const file = filePath.split("/").pop();
-        return ClickLink()
-          .on("click", () => router.navigate(`/model-viewer/${file}`))
-          .inner(file);
-      });
+    const files = await getFiles();
+    const list = files.sort().map((file) => {
+      return ClickLink()
+        .on("click", () => router.navigate(`/model-viewer/${file}`))
+        .inner(file);
+    });
     node.inner(...list);
   };
 

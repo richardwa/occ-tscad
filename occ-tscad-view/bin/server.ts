@@ -2,6 +2,7 @@
 
 import express, { Request, Response } from "express";
 import path from "path";
+import { serveIndexJson } from "./serveIndexJson";
 
 const app = express();
 const port = process.env.PORT || 5177;
@@ -12,6 +13,7 @@ if (!modelsFolder) {
   console.error("Usage: bun server.ts <folder-to-serve>");
   process.exit(1);
 }
+app.get("/models",serveIndexJson(modelsFolder));
 app.use(
   "/models",
   express.static(modelsFolder),
