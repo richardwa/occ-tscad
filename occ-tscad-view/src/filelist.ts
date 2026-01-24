@@ -12,7 +12,9 @@ const getFiles = async (): Promise<string[]> => {
     return await resp.json();
   } catch {
     // fallback to statically defined list of files (for vite and github pages)
-    return Object.keys(models).map(file => file.substring('../public/models/'.length));
+    return Object.keys(models).map((file) =>
+      file.substring("../public/models/".length),
+    );
   }
 };
 
