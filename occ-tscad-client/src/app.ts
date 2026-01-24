@@ -8,5 +8,10 @@ export const App = () =>
     .css("padding", "0.5rem")
     .do(async (node) => {
       await initOCC();
-      node.inner(fileList(), router.getRoot());
+      node.inner(
+        fileList(),
+        div()
+          .css("flex-grow", "1")
+          .inner(router.getRoot()),
+      );
     });

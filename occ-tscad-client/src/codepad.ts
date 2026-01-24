@@ -41,7 +41,7 @@ export const CodePad = (file: string) => {
   })();
 
   return vbox()
-    .css("height", "100%")
+    .css("min-height", "calc(-1rem + 100vh)")
     .inner(
       hbox().inner(Button().on("click", renderContents).inner("Render")),
       TextArea(fileContents)

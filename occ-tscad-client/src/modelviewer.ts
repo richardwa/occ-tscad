@@ -11,6 +11,7 @@ export const ModelViewer = (file: string) => {
 
   return vbox()
     .css("flex-grow", "1")
+    .css("min-height", "calc(-1rem + 100vh)")
     .inner(
       hbox().inner(
         Button()
