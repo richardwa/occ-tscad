@@ -1,0 +1,24 @@
+{
+  "name": "occ-tscad",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "format": "bun x prettier -w *.json *.ts ./src ./public",
+    "prebuild": "bun run format",
+    "build": "tsc && vite build",
+    "prestart": "bun run build",
+    "publish": "rm -rf docs; mv dist docs;"
+  },
+  "dependencies": {
+    "@google/model-viewer": "^1.11.1",
+    "occ-tscad-core": "file:../occ-tscad-core"
+  },
+  "devDependencies": {
+    "@types/three": "^0.181.0",
+    "prettier": "^3.6.2",
+    "typescript": "~5.9.3",
+    "vite": "^7.2.2"
+  }
+}

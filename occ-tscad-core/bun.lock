@@ -1,0 +1,25 @@
+{
+  "lockfileVersion": 1,
+  "configVersion": 1,
+  "workspaces": {
+    "": {
+      "name": "occ-tscad",
+      "dependencies": {
+        "opencascade.js": "2.0.0-beta.c301f5e",
+      },
+      "devDependencies": {
+        "prettier": "^3.6.2",
+        "typescript": "~5.9.3",
+      },
+    },
+  },
+  "packages": {
+    "opencascade.js": ["opencascade.js@2.0.0-beta.c301f5e", "", { "peerDependencies": { "ws": "^8.5.0" } }, "sha512-DBgtTTfZ/FVkWRR2mygh4MuW/wNdz2K7y9Jnl1eXOuHBjFj6Nsyr6D/D3LtDXOo0ZSo6uS/poukNGCmEUVukpQ=="],
+
+    "prettier": ["prettier@3.8.0", "", { "bin": { "prettier": "bin/prettier.cjs" } }, "sha512-yEPsovQfpxYfgWNhCfECjG5AQaO+K3dp6XERmOepyPDVqcJm+bjyCVO3pmU+nAPe0N5dDvekfGezt/EIiRe1TA=="],
+
+    "typescript": ["typescript@5.9.3", "", { "bin": { "tsc": "bin/tsc", "tsserver": "bin/tsserver" } }, "sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw=="],
+
+    "ws": ["ws@8.19.0", "", { "peerDependencies": { "bufferutil": "^4.0.1", "utf-8-validate": ">=5.0.2" }, "optionalPeers": ["bufferutil", "utf-8-validate"] }, "sha512-blAT2mjOEIi0ZzruJfIhb3nps74PRWTCz1IjglWEEpQl5XS/UNama6u2/rjFkDDouqr4L67ry+1aGIALViWjDg=="],
+  }
+}
