@@ -9,6 +9,8 @@
   "main": "./src",
   "scripts": {
     "format": "bun x prettier -w .",
+    "prebuild": "bun run format",
+    "build": "tsc",
     "render": "bun bin/cli-render.ts"
   },
   "dependencies": {

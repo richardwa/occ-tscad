@@ -1,6 +1,6 @@
 import { div, hbox, fragment, grid } from "../lib";
 import { fileList } from "./filelist";
-import { initOCC } from "../../common/csg/occ";
+import { initOCC } from "occ-tscad-core";
 import { router } from "./routes";
 
 export const App = () =>

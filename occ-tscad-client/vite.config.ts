@@ -1,16 +1,6 @@
 import path from "path";
 import { defineConfig, ViteDevServer } from "vite";
-import express from "express";
-import { configureRoutes } from "./src/server/routes";
 
-const expressPlugin = () => ({
-  name: "vite-plugin-express",
-  configureServer(server: ViteDevServer) {
-    const app = express();
-    configureRoutes(app);
-    server.middlewares.use(app);
-  },
-});
 
 export default defineConfig({
   base: "./",
@@ -25,7 +15,6 @@ export default defineConfig({
     outDir: path.resolve(__dirname, "dist"),
     emptyOutDir: true,
   },
-  plugins: [expressPlugin()],
   optimizeDeps: {
     exclude: ["opencascade.js"],
   },
