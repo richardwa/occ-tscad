@@ -16,7 +16,13 @@ export const CodePad = (file: string) => {
   const renderContents = async () => {
     const { sphere, box, circle, cone, cylinder, poly, torus, wedge } =
       await import("occ-tscad-core");
-    const contents = fileContents.get();
+    let contents = fileContents.get();
+
+    // remove imports
+    contents = contents.replace(/^\s*import\s.*?;[\r\n]*/gm, "");
+    // remove exports
+    contents = contents.replace(/^\s*export /gm, "");
+
     const main = eval(contents + "\n try{main;}catch{}");
     if (!main) {
       console.error(`code must contain "const main"`);
@@ -30,11 +36,6 @@ export const CodePad = (file: string) => {
   (async () => {
     const resp = await fetch(`${baseContext}/models/${file}`);
     let contents = await resp.text();
-    // remove imports
-    contents = contents.replace(/^\s*import\s.*?;[\r\n]*/gm, "");
-
-    // remove export
-    contents = contents.replace(/^\s*export /gm, "");
 
     fileContents.set(contents);
     renderContents();

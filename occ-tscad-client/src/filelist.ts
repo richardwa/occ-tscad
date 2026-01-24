@@ -2,13 +2,19 @@ import { fragment, h, vbox, div, signal, RNode } from "solid-vanilla";
 import { ClickLink, Title } from "./components";
 import { router } from "./routes";
 
+// @ts-ignore
+const models = import.meta.glob("../public/models/*.ts", { eager: true });
+
 export const fileList = () => {
   const loadFileList = async (node: RNode) => {
-    const list = ["test-union.ts", "test-xyz.ts"].sort().map((file) =>
-      ClickLink()
-        .on("click", () => router.navigate(`/model-viewer/${file}`))
-        .inner(file),
-    );
+    const list = Object.keys(models)
+      .sort()
+      .map((filePath) => {
+        const file = filePath.split("/").pop();
+        return ClickLink()
+          .on("click", () => router.navigate(`/model-viewer/${file}`))
+          .inner(file);
+      });
     node.inner(...list);
   };
 

@@ -10,8 +10,6 @@ export const App = () =>
       await initOCC();
       node.inner(
         fileList(),
-        div()
-          .css("flex-grow", "1")
-          .inner(router.getRoot()),
+        div().css("flex-grow", "1").inner(router.getRoot()),
       );
     });
