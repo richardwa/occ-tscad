@@ -4,10 +4,7 @@ import { signal, h } from "solid-vanilla";
 import { modelShape } from "./model-store";
 import { getOCC } from "occ-tscad";
 
-// check for github pages
-const baseContext = document.location.pathname.includes("occ-tscad")
-  ? "/occ-tscad"
-  : "";
+const base = import.meta.env.BASE_URL;
 
 export const CodePad = (file: string) => {
   const fileContents = signal("");
@@ -34,7 +31,7 @@ export const CodePad = (file: string) => {
   };
 
   (async () => {
-    const resp = await fetch(`${baseContext}/models/${file}`);
+    const resp = await fetch(`${base}models/${file}`);
     let contents = await resp.text();
 
     fileContents.set(contents);

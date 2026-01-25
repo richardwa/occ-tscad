@@ -1,9 +1,10 @@
-import { Router, div, hbox, grid, fragment } from "solid-vanilla";
+import { Router, hbox } from "solid-vanilla";
 import { ModelViewer } from "./modelviewer";
 import { Title } from "./components";
 import { CodePad } from "./codepad";
 
-const router = new Router("occ-tscad");
+const base = import.meta.env.BASE_URL;
+const router = new Router(base?.substring(0, base.length - 1));
 
 router.addRoute("/", () => Title("Select File"));
 router.addRoute("/model-viewer/:file", (params) =>
