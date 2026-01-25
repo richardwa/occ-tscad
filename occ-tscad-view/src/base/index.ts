@@ -21,15 +21,21 @@ export const NavLink = (href: string) =>
 export const ClickLink = () =>
   h("a").css("cursor", "pointer").css("color", "blue");
 
-export const TextArea = (val: Signal<string>) =>
+export const TextArea = (val: Signal<string | undefined>) =>
   h("textarea")
-    .watch(val, (node) => ((node.el as HTMLTextAreaElement).value = val.get()))
+    .watch(
+      val,
+      (node) => ((node.el as HTMLTextAreaElement).value = val.get() ?? ""),
+    )
     .on("change", (event) => val.set(event.target.value));
 
-export const TextInput = (val: Signal<string>) =>
+export const TextInput = (val: Signal<string | undefined>) =>
   h("input")
     .attr("type", "text")
-    .watch(val, (node) => ((node.el as HTMLInputElement).value = val.get()))
+    .watch(
+      val,
+      (node) => ((node.el as HTMLInputElement).value = val.get() ?? ""),
+    )
     .on("change", (event) => val.set(event.target.value));
 
 export const NumberInput = (val: Signal<number>) =>

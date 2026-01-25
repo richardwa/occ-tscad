@@ -1,0 +1,1 @@
+import{h as n,s as a}from"./index-BK9rza5z.js";import{l,F as r,M as i}from"./filelist-BVytsk7q.js";const d=e=>{const t=a();return n().css("flex-grow","1").watch(e,async()=>{const s=e.get();if(s==null||s==="")return;let o=await l(s);t.set(o)}).inner(r("/model-view"),i(e,t))};export{d as ModelView};
