@@ -13,6 +13,11 @@
     "occ-tscad": "file:../occ-tscad",
     "occ-tscad-view": "file:../occ-tscad-view"
   },
+  "peerDependencies": {
+    "opencascade.js": "2.0.0-beta.c301f5e",
+    "express": "^5.1.0",
+    "solid-vanilla": "github:richardwa/solid-vanilla"
+  },
   "devDependencies": {
     "prettier": "^3.6.2",
     "typescript": "~5.9.3"

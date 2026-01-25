@@ -19,6 +19,9 @@
     "occ-tscad": "file:../occ-tscad",
     "solid-vanilla": "github:richardwa/solid-vanilla"
   },
+  "peerDependencies": {
+    "opencascade.js": "2.0.0-beta.c301f5e"
+  },
   "devDependencies": {
     "@types/express": "types/express",
     "@types/node": "^25.0.10",
