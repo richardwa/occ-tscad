@@ -1,11 +1,9 @@
-import { Router, hbox } from "solid-vanilla";
+import { HashRouter, hbox } from "solid-vanilla";
 import { ModelViewer } from "./modelviewer";
 import { Title } from "./components";
 import { CodePad } from "./codepad";
 
-const base = new URL(document.baseURI).pathname.split("/")[1];
-const router = new Router(base);
-console.log({ base });
+const router = new HashRouter();
 
 router.addRoute("/", () => Title("Select File"));
 router.addRoute("/model-viewer/:file", (params) => {

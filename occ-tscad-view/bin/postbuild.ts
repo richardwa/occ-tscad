@@ -1,10 +1,6 @@
-import { cp, rm, rename } from "fs/promises";
-import { existsSync } from "fs";
+import { cp, rm, rename, exists } from "fs/promises";
 
-await cp("dist/index.html", "dist/404.html");
-
-if (existsSync("../docs")) {
+if (await exists("../docs")) {
   await rm("../docs", { recursive: true, force: true });
 }
-
 await rename("dist", "../docs");

@@ -4,10 +4,6 @@ import { signal, h } from "solid-vanilla";
 import { modelShape } from "./model-store";
 import { getOCC } from "occ-tscad";
 
-const { protocol, host } = window.location;
-const base = `${protocol}//${host}`;
-const context = new URL(document.baseURI).pathname.split("/")[1];
-
 export const CodePad = (file: string) => {
   const fileContents = signal("");
   console.log(file);
@@ -33,7 +29,7 @@ export const CodePad = (file: string) => {
   };
 
   (async () => {
-    const resp = await fetch(`${base}/${context}/models/${file}`);
+    const resp = await fetch(`${document.baseURI}/models/${file}`);
     let contents = await resp.text();
 
     fileContents.set(contents);
