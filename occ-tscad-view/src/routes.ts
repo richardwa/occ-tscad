@@ -3,7 +3,7 @@ import { ModelViewer } from "./modelviewer";
 import { Title } from "./components";
 import { CodePad } from "./codepad";
 
-const router = new Router();
+const router = new Router("occ-tscad");
 
 router.addRoute("/", () => Title("Select File"));
 router.addRoute("/model-viewer/:file", (params) =>

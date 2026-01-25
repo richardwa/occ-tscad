@@ -2,7 +2,7 @@ import path from "path";
 import { defineConfig } from "vite";
 
 export default defineConfig({
-  base: "./",
+  base: "occ-tscad",
   publicDir: path.resolve(__dirname, "public"),
   server: {
     port: 5177,
