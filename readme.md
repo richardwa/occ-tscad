@@ -4,8 +4,9 @@ Typescript CSG library leveraging Opencascade.js for rendering
 
 ## Getting Started
 ```sh
+cd projects
 bun install
-bun dev
+bun start
 ```
 open your browser to localhost:5177
 

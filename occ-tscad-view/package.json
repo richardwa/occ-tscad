@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "format": "bun x prettier -w *.json *.ts ./src ./public",
+    "format": "bun x prettier -w *.json *.ts ./src ./public ./bin",
     "prebuild": "bun run format",
     "build": "tsc && vite build",
     "postbuild": "bun bin/postbuild.ts"

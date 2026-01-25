@@ -29,7 +29,7 @@ export const CodePad = (file: string) => {
   };
 
   (async () => {
-    const resp = await fetch(`${document.baseURI}/models/${file}`);
+    const resp = await fetch(`${document.baseURI}models/${file}`);
     let contents = await resp.text();
 
     fileContents.set(contents);

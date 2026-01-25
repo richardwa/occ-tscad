@@ -1,6 +1,7 @@
-import { cp, rm, rename, exists } from "fs/promises";
+import { cp, rm, rename, access } from "fs/promises";
 
-if (await exists("../docs")) {
+try {
+  await access("../docs");
   await rm("../docs", { recursive: true, force: true });
-}
+} catch {}
 await rename("dist", "../docs");
