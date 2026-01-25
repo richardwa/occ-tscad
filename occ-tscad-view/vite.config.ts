@@ -2,6 +2,8 @@ import path from "path";
 import { defineConfig } from "vite";
 
 export default defineConfig({
+  base: "./",
+  publicDir: path.resolve(__dirname, "public"),
   server: {
     port: 5177,
     host: true,
@@ -9,6 +11,7 @@ export default defineConfig({
     strictPort: true,
   },
   build: {
+    outDir: path.resolve(__dirname, "dist"),
     emptyOutDir: true,
   },
   optimizeDeps: {
