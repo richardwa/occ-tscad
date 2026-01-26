@@ -15,7 +15,7 @@ export const main = () =>
     target: box(2, 2, 2).translate([1, 1, 1]),
   });
 
-/* *** API reference ***
+/* *** API reference **
 
 box(x: number, y: number, z: number, centered = true) => Shape3
 circle(radius: number) => Shape2

@@ -8,8 +8,8 @@ export const Home = () => {
     .css("height", "2rem")
     .inner(
       ClickLink()
-        .on("click", () => router.navigate("/live-demo"))
-        .inner("[live demo]"),
+        .on("click", () => router.navigate("/live-editor"))
+        .inner("[live editor]"),
       ClickLink()
         .on("click", () => router.navigate("/file-browser/"))
         .inner("[file browser]"),

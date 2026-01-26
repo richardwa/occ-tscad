@@ -7,27 +7,21 @@ import * as tsPlugin from "prettier/plugins/typescript";
 import * as estree from "prettier/plugins/estree";
 // @ts-ignore
 import sampleText from "./sample.ts?raw";
-
 const storageKey = "sample.ts";
 export const IDEView = () => {
   const shapeFileContents = signal<string>();
-  (async () => {
-    const stored = localStorage.getItem(storageKey);
-    if (stored) {
-      shapeFileContents.set(stored);
-    } else {
-      shapeFileContents.set(sampleText);
-    }
-  })();
+  const stored = localStorage.getItem(storageKey);
+  if (stored) {
+    shapeFileContents.set(stored);
+  } else {
+    shapeFileContents.set(sampleText);
+  }
 
   return hbox()
     .css("flex-grow", "1")
     .inner(
       vbox().inner(
         hbox().inner(
-          Button()
-            .on("click", () => shapeFileContents.trigger())
-            .inner("Render"),
           Button()
             .on("click", async () => {
               localStorage.removeItem(storageKey);
