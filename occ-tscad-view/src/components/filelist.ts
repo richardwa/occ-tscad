@@ -1,4 +1,4 @@
-import { fragment, h, vbox, div, signal, RNode } from "solid-vanilla";
+import { hbox, fragment, h, vbox, div, signal, RNode } from "solid-vanilla";
 import { ClickLink, Title } from "../base";
 import { router } from "../routes";
 
@@ -33,9 +33,10 @@ export const FileList = (baseRoute: string) => {
     .css("border-right", "1px solid gray")
     .css("min-width", "10rem")
     .inner(
-      div()
+      hbox()
         .css("border-bottom", "1px solid gray")
         .css("height", "calc(26px + .25rem)")
+        .css("align-items", "center")
         .inner(Title("files")),
       vbox().css("padding-right", ".25rem").do(loadFileList),
     );

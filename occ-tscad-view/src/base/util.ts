@@ -31,18 +31,23 @@ export const getModelShape = async (contents: string) => {
     await import("occ-tscad");
 
   // remove imports
-  contents = contents.replace(/^\s*import\s.*?;[\r\n]*/gm, "");
+  let replaced = contents.replace(/^\s*import[\s\S]*?;[\r\n]*/gm, "");
   // remove exports
-  contents = contents.replace(/^\s*export /gm, "");
+  replaced = replaced.replace(/^\s*export /gm, "");
 
-  const main = eval(contents + "\n try{main;}catch{}");
-  if (!main) {
-    console.error(`code must contain "const main"`);
-    return;
+  try {
+    const main = eval(replaced + "\n try{main;}catch{}");
+    if (!main) {
+      console.error(`code must contain "const main"`);
+      return;
+    }
+    const oc = getOCC();
+    const result = main(oc);
+    return result;
+  } catch (e) {
+    console.error(replaced, e);
+    throw e;
   }
-  const oc = getOCC();
-  const result = main(oc);
-  return result;
 };
 
 export const loadModelFile = async (file: string) => {

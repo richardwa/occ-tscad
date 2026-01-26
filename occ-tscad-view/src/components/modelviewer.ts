@@ -31,9 +31,8 @@ export const ModelViewer = (
           .on("click", async () => {
             const contents = shapeFileContents.get();
             if (contents == null) return;
-            const { renderToSTL, stlToObj, renderToGLB } = await import(
-              "occ-tscad"
-            );
+            const { renderToSTL, stlToObj, renderToGLB } =
+              await import("occ-tscad");
 
             const model = await getModelShape(contents);
             if (!model) return;
@@ -50,6 +49,15 @@ export const ModelViewer = (
           })
           .inner("Download Obj"),
         errorMessage,
+        hbox()
+          .css("align-items", "center")
+          .watch(
+            file,
+            (node) => {
+              node.inner(file.get());
+            },
+            true,
+          ),
       ),
       h("model-viewer")
         .attr("camera-controls")
@@ -60,9 +68,8 @@ export const ModelViewer = (
         .watch(shapeFileContents, async (node) => {
           const contents = shapeFileContents.get();
           if (contents == null) return;
-          const { renderToSTL, stlToObj, renderToGLB } = await import(
-            "occ-tscad"
-          );
+          const { renderToSTL, stlToObj, renderToGLB } =
+            await import("occ-tscad");
           try {
             const model = await getModelShape(contents);
             if (!model) return;

@@ -1,0 +1,1 @@
+import{v as i,r as e}from"./index-BjgsG967.js";import{C as r}from"./index-Chtpx4LP.js";const s=()=>i().css("gap","1rem").css("height","2rem").inner(r().on("click",()=>e.navigate("/live-demo")).inner("[live demo]"),r().on("click",()=>e.navigate("/file-browser/")).inner("[file browser]"));export{s as Home};

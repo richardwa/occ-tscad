@@ -13,5 +13,5 @@ export const ModelView = (file: Signal<string | undefined>) => {
       let contents = await loadModelFile(f);
       shapeFileContents.set(contents);
     })
-    .inner(FileList("/model-view"), ModelViewer(file, shapeFileContents));
+    .inner(FileList("/file-browser"), ModelViewer(file, shapeFileContents));
 };

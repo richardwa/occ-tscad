@@ -12,12 +12,5 @@
     "prebuild": "bun run format",
     "build": "tsc",
     "render": "bun bin/cli-render.ts"
-  },
-  "dependencies": {
-    "opencascade.js": "2.0.0-beta.c301f5e"
-  },
-  "devDependencies": {
-    "prettier": "^3.6.2",
-    "typescript": "~5.9.3"
   }
 }

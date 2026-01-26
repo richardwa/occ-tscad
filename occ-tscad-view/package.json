@@ -1,5 +1,5 @@
 {
-  "name": "occ-tscad",
+  "name": "occ-tscad-view",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -8,25 +8,12 @@
   },
   "scripts": {
     "dev": "vite",
-    "format": "bun x prettier -w *.json *.ts ./src ./public ./bin",
+    "format": "bun x prettier -w .",
     "prebuild": "bun run format",
     "build": "tsc && vite build",
     "postbuild": "bun bin/postbuild.ts"
   },
   "dependencies": {
-    "@google/model-viewer": "^1.11.1",
-    "express": "^5.1.0",
-    "occ-tscad": "file:../occ-tscad",
-    "solid-vanilla": "github:richardwa/solid-vanilla"
-  },
-  "peerDependencies": {
-    "opencascade.js": "2.0.0-beta.c301f5e"
-  },
-  "devDependencies": {
-    "@types/express": "types/express",
-    "@types/node": "^25.0.10",
-    "prettier": "^3.6.2",
-    "typescript": "~5.9.3",
-    "vite": "^7.2.2"
+    "occ-tscad": "file:../occ-tscad"
   }
 }

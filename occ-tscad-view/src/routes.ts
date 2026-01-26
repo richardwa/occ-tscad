@@ -11,23 +11,21 @@ router.addRoute("/", (params) =>
   ),
 );
 
-const currentFile = signal<string>();
-
-router.addRoute("/ide-view:file", (params) => {
-  currentFile.set(params.file);
-  return root.memo("ide-view", () =>
+router.addRoute("/live-editor", () => {
+  return root.memo("live-editor", () =>
     fragment().do(async (node) => {
-      const { IDEView } = await import("./views/ide-view");
-      node.inner(IDEView(currentFile));
+      const { IDEView } = await import("./views/live-editor");
+      node.inner(IDEView());
     }),
   );
 });
 
-router.addRoute("/model-view/:file", (params) => {
+const currentFile = signal<string>();
+router.addRoute("/file-browser/:file", (params) => {
   currentFile.set(params.file);
-  return root.memo("model-view", () =>
+  return root.memo("file-browser", () =>
     fragment().do(async (node) => {
-      const { ModelView } = await import("./views/model-only");
+      const { ModelView } = await import("./views/file-browser");
       node.inner(ModelView(currentFile));
     }),
   );
