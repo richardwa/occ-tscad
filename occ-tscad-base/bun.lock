@@ -1,0 +1,16 @@
+{
+  "lockfileVersion": 1,
+  "configVersion": 1,
+  "workspaces": {
+    "": {
+      "name": "occ-tscad-base",
+      "dependencies": {
+        "occ-tscad": "file:../occ-tscad",
+      },
+    },
+  },
+  "packages": {
+    "occ-tscad": ["occ-tscad@file:../occ-tscad", 
+    { "bin": { "tscad-render": "bin/cli-render.ts" } }],
+  }
+}

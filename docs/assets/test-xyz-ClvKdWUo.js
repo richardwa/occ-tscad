@@ -1,1 +1,0 @@
-import{s as a,b as n}from"./polygon-DoD_VXe4.js";const o=()=>a(.5).union(n(1,1,1).translate([2,0,0])).union(n(1.2,1.2,1.2).translate([0,2,0])).union(n(1.5,1.5,1.5).translate([0,0,2]));export{o as main};

@@ -3,7 +3,8 @@
   "private": true,
   "workspaces": [
     "occ-tscad",
-    "occ-tscad-view",
+    "occ-tscad-local",
+    "occ-tscad-static",
     "projects"
   ],
   "scripts": {
@@ -11,16 +12,16 @@
     "build": "bun run --workspaces build"
   },
   "dependencies": {
-    "@google/model-viewer": "^1.11.1",
-    "express": "^5.1.0",
+    "@google/model-viewer": "^1.12.1",
+    "express": "^5.2.1",
     "opencascade.js": "2.0.0-beta.c301f5e",
-    "prettier": "^3.6.2",
+    "prettier": "^3.8.1",
     "solid-vanilla": "github:richardwa/solid-vanilla"
   },
   "devDependencies": {
     "@types/express": "types/express",
     "@types/node": "^25.0.10",
     "typescript": "~5.9.3",
-    "vite": "^7.2.2"
+    "vite": "^7.3.1"
   }
 }

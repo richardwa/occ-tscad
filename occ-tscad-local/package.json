@@ -1,16 +1,18 @@
 {
-  "name": "occ-tscad-server",
-  "private": true,
+  "name": "occ-tscad-local",
   "version": "0.0.0",
   "type": "module",
+  "bin": {
+    "tscad-server": "bin/server.ts"
+  },
   "scripts": {
+    "dev": "vite",
     "format": "bun x prettier -w .",
     "prebuild": "bun run format",
-    "build": "tsc",
-    "start": "tscad-server src"
+    "build": "tsc && vite build"
   },
   "dependencies": {
     "occ-tscad": "file:../occ-tscad",
-    "occ-tscad-local": "file:../occ-tscad-local"
+    "occ-tscad-base": "file:../occ-tscad-base"
   }
 }

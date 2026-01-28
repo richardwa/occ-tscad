@@ -5,17 +5,17 @@
     "": {
       "name": "occ-tscad-monorepo",
       "dependencies": {
-        "@google/model-viewer": "^1.11.1",
-        "express": "^5.1.0",
+        "@google/model-viewer": "^1.12.1",
+        "express": "^5.2.1",
         "opencascade.js": "2.0.0-beta.c301f5e",
+        "prettier": "^3.8.1",
         "solid-vanilla": "github:richardwa/solid-vanilla",
       },
       "devDependencies": {
         "@types/express": "types/express",
         "@types/node": "^25.0.10",
-        "prettier": "^3.6.2",
         "typescript": "~5.9.3",
-        "vite": "^7.2.2",
+        "vite": "^7.3.1",
       },
     },
     "occ-tscad": {
@@ -25,14 +25,23 @@
         "tscad-render": "bin/cli-render.ts",
       },
     },
-    "occ-tscad-view": {
-      "name": "occ-tscad-view",
+    "occ-tscad-local": {
+      "name": "occ-tscad-local",
       "version": "0.0.0",
       "bin": {
         "tscad-server": "bin/server.ts",
       },
       "dependencies": {
         "occ-tscad": "file:../occ-tscad",
+        "occ-tscad-base": "file:../occ-tscad-base",
+      },
+    },
+    "occ-tscad-static": {
+      "name": "occ-tscad-static",
+      "version": "0.0.0",
+      "dependencies": {
+        "occ-tscad": "file:../occ-tscad",
+        "occ-tscad-base": "file:../occ-tscad-base",
       },
     },
     "projects": {
@@ -40,7 +49,7 @@
       "version": "0.0.0",
       "dependencies": {
         "occ-tscad": "file:../occ-tscad",
-        "occ-tscad-view": "file:../occ-tscad-view",
+        "occ-tscad-local": "file:../occ-tscad-local",
       },
     },
   },
@@ -265,9 +274,11 @@
 
     "occ-tscad": ["occ-tscad@workspace:occ-tscad"],
 
+    "occ-tscad-local": ["occ-tscad-local@workspace:occ-tscad-local"],
+
     "occ-tscad-server": ["occ-tscad-server@workspace:projects"],
 
-    "occ-tscad-view": ["occ-tscad-view@workspace:occ-tscad-view"],
+    "occ-tscad-static": ["occ-tscad-static@workspace:occ-tscad-static"],
 
     "on-finished": ["on-finished@2.4.1", "", { "dependencies": { "ee-first": "1.1.1" } }, "sha512-oVlzkg3ENAhCk2zdv7IJwd/QUD4z2RxRwpkcGY8psCVcCYZNq4wYnVWALHM+brtuJjePWiYF/ClmuDr8Ch5+kg=="],
 
@@ -342,6 +353,16 @@
     "wrappy": ["wrappy@1.0.2", "", {}, "sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ=="],
 
     "ws": ["ws@8.19.0", "", { "peerDependencies": { "bufferutil": "^4.0.1", "utf-8-validate": ">=5.0.2" }, "optionalPeers": ["bufferutil", "utf-8-validate"] }, "sha512-blAT2mjOEIi0ZzruJfIhb3nps74PRWTCz1IjglWEEpQl5XS/UNama6u2/rjFkDDouqr4L67ry+1aGIALViWjDg=="],
+
+    "occ-tscad-local/occ-tscad": ["occ-tscad@file:occ-tscad", { "bin": { "tscad-render": "bin/cli-render.ts" } }],
+
+    "occ-tscad-local/occ-tscad-base": ["occ-tscad-base@file:occ-tscad-base", {}],
+
+    "occ-tscad-server/occ-tscad": ["occ-tscad@file:occ-tscad", { "bin": { "tscad-render": "bin/cli-render.ts" } }],
+
+    "occ-tscad-static/occ-tscad": ["occ-tscad@file:occ-tscad", { "bin": { "tscad-render": "bin/cli-render.ts" } }],
+
+    "occ-tscad-static/occ-tscad-base": ["occ-tscad-base@file:occ-tscad-base", {}],
 
     "router/path-to-regexp": ["path-to-regexp@8.3.0", "", {}, "sha512-7jdwVIRtsP8MYpdXSwOS0YdD0Du+qOoF/AEPIt88PcCFrZCzx41oxku1jD88hZBwbNUIEfpqvuhjFaMAqMTWnA=="],
   }
