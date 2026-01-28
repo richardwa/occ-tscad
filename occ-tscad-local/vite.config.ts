@@ -1,9 +1,21 @@
 import path from "path";
-import { defineConfig } from "vite";
+import { defineConfig, ViteDevServer } from "vite";
+import express from "express";
+import { serveIndexJson } from "./server/serveIndexJson";
+
+const expressPlugin = () => ({
+  name: "vite-plugin-express",
+  configureServer(server: ViteDevServer) {
+    const app = express();
+    const modelsFolder = path.resolve(__dirname, "models");
+    app.get("/models", serveIndexJson(modelsFolder));
+    app.use("/models", express.static(path.join(process.cwd(), modelsFolder)));
+    server.middlewares.use(app);
+  },
+});
 
 export default defineConfig({
   base: "./",
-  publicDir: path.resolve(__dirname, "public"),
   server: {
     port: 5177,
     host: true,
@@ -14,6 +26,7 @@ export default defineConfig({
     outDir: path.resolve(__dirname, "dist"),
     emptyOutDir: true,
   },
+  plugins: [expressPlugin()],
   optimizeDeps: {
     exclude: ["opencascade.js"],
   },

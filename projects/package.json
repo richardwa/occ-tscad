@@ -10,7 +10,7 @@
     "start": "tscad-server src"
   },
   "dependencies": {
-    "occ-tscad": "file:../occ-tscad",
-    "occ-tscad-local": "file:../occ-tscad-local"
+    "occ-tscad": "workspace:*",
+    "occ-tscad-local": "workspace:*"
   }
 }

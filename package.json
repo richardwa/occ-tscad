@@ -3,6 +3,7 @@
   "private": true,
   "workspaces": [
     "occ-tscad",
+    "occ-tscad-base",
     "occ-tscad-local",
     "occ-tscad-static",
     "projects"
@@ -16,11 +17,11 @@
     "express": "^5.2.1",
     "opencascade.js": "2.0.0-beta.c301f5e",
     "prettier": "^3.8.1",
-    "solid-vanilla": "github:richardwa/solid-vanilla"
+    "solid-vanilla": "file:../solid-vanilla"
   },
   "devDependencies": {
     "@types/express": "types/express",
-    "@types/node": "^25.0.10",
+    "@types/node": "^25.1.0",
     "typescript": "~5.9.3",
     "vite": "^7.3.1"
   }

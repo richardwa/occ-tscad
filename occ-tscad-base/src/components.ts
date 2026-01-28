@@ -43,3 +43,13 @@ export const NumberInput = (val: Signal<number>) =>
     .attr("type", "number")
     .attr("value", () => `${val}`)
     .on("change", (event) => val.set(event.target.value));
+
+export const CheckBox = (val: Signal<boolean>) =>
+  h("input")
+    .attr("type", "checkbox")
+    .on("change", (event) => {
+      val.set(event.target.checked);
+    })
+    .watch(val, (node) => {
+      node.attr("checked", () => (val.get() ? "checked" : undefined));
+    });

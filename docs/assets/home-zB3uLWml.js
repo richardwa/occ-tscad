@@ -1,1 +1,0 @@
-import{v as r,r as e}from"./index-N6q_lw_e.js";import{C as i}from"./model-viewer.min-CyVsmXCI.js";const n=()=>r().css("gap","1rem").css("height","2rem").inner(i().on("click",()=>e.navigate("/live-editor")).inner("[live editor]"));export{n as Home};

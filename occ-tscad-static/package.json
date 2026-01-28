@@ -11,7 +11,7 @@
     "postbuild": "bun bin/postbuild.ts"
   },
   "dependencies": {
-    "occ-tscad": "file:../occ-tscad",
-    "occ-tscad-base": "file:../occ-tscad-base"
+    "occ-tscad": "workspace:*",
+    "occ-tscad-base": "workspace:*"
   }
 }

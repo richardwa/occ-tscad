@@ -13,11 +13,12 @@ if (!modelsFolder) {
   console.error("Usage: bun server.ts <folder-to-serve>");
   process.exit(1);
 }
+
 app.get("/models", serveIndexJson(modelsFolder));
 app.use("/models", express.static(path.join(process.cwd(), modelsFolder)));
 
 // Serve frontend from built client
-const distPath = path.resolve(__dirname, "./dist");
+const distPath = path.resolve(__dirname, "../dist");
 app.use(express.static(distPath));
 
 app.listen(port, () => {

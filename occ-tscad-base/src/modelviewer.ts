@@ -1,4 +1,4 @@
-import { hbox, vbox, Signal, signal, h, div } from "solid-vanilla";
+import { hbox, vbox, Signal, signal, h, div, BaseNode } from "solid-vanilla";
 import {
   downloadBinaryFile,
   setExtension,
@@ -12,12 +12,12 @@ import "@google/model-viewer";
 export const ModelViewer = (
   file: Signal<string | undefined>,
   shapeFileContents: Signal<string | undefined>,
+  ...buttons: BaseNode[]
 ) => {
   const initialDirection = signal("45deg auto auto");
   const errorMessage = hbox()
     .css("color", "red")
     .css("align-items", "center")
-    .css("justify-content", "end")
     .css("flex-grow", "1")
     .css("padding", ".25rem");
 
@@ -49,6 +49,9 @@ export const ModelViewer = (
             );
           })
           .inner("Download Obj"),
+        ...buttons,
+      ),
+      hbox().inner(
         errorMessage,
         hbox()
           .css("align-items", "center")
@@ -87,7 +90,8 @@ export const ModelViewer = (
             node.el.src = url;
             errorMessage.inner("");
           } catch (e: any) {
-            errorMessage.inner(`error: ${e.name} ${formatDate()}`);
+            const err = e.name ?? `Render Error: ${e}`;
+            errorMessage.inner(`${formatDate()} ${err}`);
             console.error(e);
           }
         }),

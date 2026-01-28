@@ -3,16 +3,17 @@
   "version": "0.0.0",
   "type": "module",
   "bin": {
-    "tscad-server": "bin/server.ts"
+    "tscad-server": "server/server.ts"
   },
   "scripts": {
     "dev": "vite",
     "format": "bun x prettier -w .",
     "prebuild": "bun run format",
-    "build": "tsc && vite build"
+    "build": "tsc && vite build",
+    "start": "bun server/server.ts models"
   },
   "dependencies": {
-    "occ-tscad": "file:../occ-tscad",
-    "occ-tscad-base": "file:../occ-tscad-base"
+    "occ-tscad": "workspace:*",
+    "occ-tscad-base": "workspace:*"
   }
 }

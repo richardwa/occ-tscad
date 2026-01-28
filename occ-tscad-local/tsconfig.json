@@ -10,5 +10,11 @@
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true
   },
-  "include": ["src", "public", "bin"]
+  "include": [
+    "src",
+    "public",
+    "bin",
+    "server/serveIndexJson.ts",
+    "server/server.ts"
+  ]
 }

@@ -1,31 +1,39 @@
-import { hbox, signal, Signal } from "solid-vanilla";
-import { loadModelFile, FileList, ModelViewer } from "occ-tscad-base";
+import { hbox, signal, Signal, div } from "solid-vanilla";
+import { loadModelFile, ModelViewer, CheckBox, Button } from "occ-tscad-base";
 import { router } from "../routes";
 
 export const ModelView = (file: Signal<string | undefined>) => {
   const shapeFileContents = signal<string>();
-  const fileList = signal<string[]>([]);
-  const onFileClick = (file: string) => {
-    router.navigate(`/file-browser/${file}`);
-  };
+  const live = signal<boolean>(true).persistAs("LIVE_MODEL_VIEW");
 
-  const getFileList = async () => {
-    const resp = await fetch("/models");
-    const json = await resp.json();
-    fileList.set(json);
+  const loadFile = async () => {
+    const f = file.get();
+    if (f == null || f === "") return;
+    let contents = await loadModelFile(f);
+    shapeFileContents.set(contents);
   };
-  getFileList();
+  setInterval(() => {
+    if (live.get()) {
+      loadFile();
+    }
+  }, 10_000);
 
   return hbox()
     .css("flex-grow", "1")
-    .watch(file, async () => {
-      const f = file.get();
-      if (f == null || f === "") return;
-      let contents = await loadModelFile(f);
-      shapeFileContents.set(contents);
-    })
+    .watch(file, loadFile)
     .inner(
-      FileList(fileList, onFileClick),
-      ModelViewer(file, shapeFileContents),
+      ModelViewer(
+        file,
+        shapeFileContents,
+        div().css("flex-grow", "1"),
+        div()
+          .css("display", "flex")
+          .css("align-items", "center")
+          .inner(CheckBox(live), div().inner("live")),
+        Button().on("click", loadFile).inner("Reload"),
+        Button()
+          .on("click", () => router.navigate("/"))
+          .inner("Change File"),
+      ),
     );
 };

@@ -8,7 +8,7 @@ export const Home = () => {
     .css("height", "2rem")
     .inner(
       ClickLink()
-        .on("click", () => router.navigate("/live-editor"))
+        .on("click", () => router.navigate("/live-editor/"))
         .inner("[live editor]"),
     );
 };
