@@ -360,10 +360,16 @@
 
     "occ-tscad-server/occ-tscad": ["occ-tscad@file:occ-tscad", { "bin": { "tscad-render": "bin/cli-render.ts" } }],
 
+    "occ-tscad-server/occ-tscad-local": ["occ-tscad-local@file:occ-tscad-local", { "dependencies": { "occ-tscad": "file:../occ-tscad", "occ-tscad-base": "file:../occ-tscad-base" }, "bin": { "tscad-server": "bin/server.ts" } }],
+
     "occ-tscad-static/occ-tscad": ["occ-tscad@file:occ-tscad", { "bin": { "tscad-render": "bin/cli-render.ts" } }],
 
     "occ-tscad-static/occ-tscad-base": ["occ-tscad-base@file:occ-tscad-base", {}],
 
     "router/path-to-regexp": ["path-to-regexp@8.3.0", "", {}, "sha512-7jdwVIRtsP8MYpdXSwOS0YdD0Du+qOoF/AEPIt88PcCFrZCzx41oxku1jD88hZBwbNUIEfpqvuhjFaMAqMTWnA=="],
+
+    "occ-tscad-server/occ-tscad-local/occ-tscad": ["occ-tscad@file:occ-tscad", {}],
+
+    "occ-tscad-server/occ-tscad-local/occ-tscad-base": ["occ-tscad-base@file:occ-tscad-base", {}],
   }
 }
