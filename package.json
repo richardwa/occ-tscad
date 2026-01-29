@@ -1,6 +1,9 @@
 {
   "name": "occ-tscad-monorepo",
-  "private": true,
+  "main": "./occ-tscad/src",
+  "bin": {
+    "tscad-server": "./occ-tscad-local/server/server.ts"
+  },
   "workspaces": [
     "occ-tscad",
     "occ-tscad-base",
