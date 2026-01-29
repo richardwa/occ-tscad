@@ -13,8 +13,9 @@
   ],
   "scripts": {
     "format": "bun x prettier -w .",
-    "build": "bun run build",
-    "prepare": "bun run build"
+    "build": "bun run --workspaces build",
+    "prepare": "bun run --workspaces build"
+
   },
   "dependencies": {
     "@google/model-viewer": "^1.12.1",
