@@ -48,14 +48,6 @@
         "occ-tscad-base": "workspace:*",
       },
     },
-    "projects": {
-      "name": "occ-tscad-server",
-      "version": "0.0.0",
-      "dependencies": {
-        "occ-tscad": "workspace:*",
-        "occ-tscad-local": "workspace:*",
-      },
-    },
   },
   "packages": {
     "@esbuild/aix-ppc64": ["@esbuild/aix-ppc64@0.27.2", "", { "os": "aix", "cpu": "ppc64" }, "sha512-GZMB+a0mOMZs4MpDbj8RJp4cw+w1WV5NYD6xzgvzUJ5Ek2jerwfO2eADyI6ExDSUED+1X8aMbegahsJi+8mgpw=="],
@@ -281,8 +273,6 @@
     "occ-tscad-base": ["occ-tscad-base@workspace:occ-tscad-base"],
 
     "occ-tscad-local": ["occ-tscad-local@workspace:occ-tscad-local"],
-
-    "occ-tscad-server": ["occ-tscad-server@workspace:projects"],
 
     "occ-tscad-static": ["occ-tscad-static@workspace:occ-tscad-static"],
 

@@ -8,14 +8,11 @@
     "occ-tscad",
     "occ-tscad-base",
     "occ-tscad-local",
-    "occ-tscad-static",
-    "projects"
+    "occ-tscad-static"
   ],
   "scripts": {
     "format": "bun x prettier -w .",
-    "build": "bun run --workspaces build",
-    "prepare": "bun run --workspaces build"
-
+    "build": "bun run --workspaces build"
   },
   "dependencies": {
     "@google/model-viewer": "^1.12.1",
