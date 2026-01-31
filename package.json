@@ -1,18 +1,15 @@
 {
-  "name": "occ-tscad-monorepo",
-  "main": "./occ-tscad/src",
+  "name": "occ-tscad",
+  "main": "./packages/occ-tscad/src",
   "bin": {
-    "tscad-server": "./occ-tscad-local/server/server.ts"
+    "tscad-server": "./packages/server/bin/server.ts"
   },
   "workspaces": [
-    "occ-tscad",
-    "occ-tscad-base",
-    "occ-tscad-local",
-    "occ-tscad-static"
+    "packages/*"
   ],
   "scripts": {
     "format": "bun x prettier -w .",
-    "build": "bun run --workspaces build"
+    "prepare": "bun run --workspaces build"
   },
   "dependencies": {
     "@google/model-viewer": "^1.12.1",

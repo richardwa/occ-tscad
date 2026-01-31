@@ -18,34 +18,21 @@
         "vite": "^7.3.1",
       },
     },
-    "occ-tscad": {
+    "packages/occ-tscad": {
       "name": "occ-tscad",
       "version": "0.0.0",
       "bin": {
         "tscad-render": "bin/cli-render.ts",
       },
     },
-    "occ-tscad-base": {
-      "name": "occ-tscad-base",
-      "version": "0.0.0",
-    },
-    "occ-tscad-local": {
-      "name": "occ-tscad-local",
+    "packages/server": {
+      "name": "server",
       "version": "0.0.0",
       "bin": {
         "tscad-server": "server/server.ts",
       },
       "dependencies": {
         "occ-tscad": "workspace:*",
-        "occ-tscad-base": "workspace:*",
-      },
-    },
-    "occ-tscad-static": {
-      "name": "occ-tscad-static",
-      "version": "0.0.0",
-      "dependencies": {
-        "occ-tscad": "workspace:*",
-        "occ-tscad-base": "workspace:*",
       },
     },
   },
@@ -268,13 +255,7 @@
 
     "object-inspect": ["object-inspect@1.13.4", "", {}, "sha512-W67iLl4J2EXEGTbfeHCffrjDfitvLANg0UlX3wFUUSTx92KXRFegMHUVgSqE+wvhAbi4WqjGg9czysTV2Epbew=="],
 
-    "occ-tscad": ["occ-tscad@workspace:occ-tscad"],
-
-    "occ-tscad-base": ["occ-tscad-base@workspace:occ-tscad-base"],
-
-    "occ-tscad-local": ["occ-tscad-local@workspace:occ-tscad-local"],
-
-    "occ-tscad-static": ["occ-tscad-static@workspace:occ-tscad-static"],
+    "occ-tscad": ["occ-tscad@workspace:packages/occ-tscad"],
 
     "on-finished": ["on-finished@2.4.1", "", { "dependencies": { "ee-first": "1.1.1" } }, "sha512-oVlzkg3ENAhCk2zdv7IJwd/QUD4z2RxRwpkcGY8psCVcCYZNq4wYnVWALHM+brtuJjePWiYF/ClmuDr8Ch5+kg=="],
 
@@ -311,6 +292,8 @@
     "send": ["send@1.2.1", "", { "dependencies": { "debug": "^4.4.3", "encodeurl": "^2.0.0", "escape-html": "^1.0.3", "etag": "^1.8.1", "fresh": "^2.0.0", "http-errors": "^2.0.1", "mime-types": "^3.0.2", "ms": "^2.1.3", "on-finished": "^2.4.1", "range-parser": "^1.2.1", "statuses": "^2.0.2" } }, "sha512-1gnZf7DFcoIcajTjTwjwuDjzuz4PPcY2StKPlsGAQ1+YH20IRVrBaXSWmdjowTJ6u8Rc01PoYOGHXfP1mYcZNQ=="],
 
     "serve-static": ["serve-static@2.2.1", "", { "dependencies": { "encodeurl": "^2.0.0", "escape-html": "^1.0.3", "parseurl": "^1.3.3", "send": "^1.2.0" } }, "sha512-xRXBn0pPqQTVQiC8wyQrKs2MOlX24zQ0POGaj0kultvoOCstBQM5yvOhAVSUwOMjQtTvsPWoNCHfPGwaaQJhTw=="],
+
+    "server": ["server@workspace:packages/server"],
 
     "setprototypeof": ["setprototypeof@1.2.0", "", {}, "sha512-E5LDX7Wrp85Kil5bhZv46j8jOeboKq5JMmYM3gVGdGH8xFpPWXUMsNrlODCrkoxMEeNi/XZIwuRvY4XNwYMJpw=="],
 
