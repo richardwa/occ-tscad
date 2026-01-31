@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "format": "bun x prettier -w .",
-    "prepare": "bun run --workspaces build"
+    "postinstall": "bun run --workspaces build"
   },
   "dependencies": {
     "@google/model-viewer": "^1.12.1",
