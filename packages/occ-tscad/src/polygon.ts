@@ -1,11 +1,9 @@
 import { OpenCascadeInstance } from "opencascade.js";
-import { initOCC } from "./occ";
+import { getOCC } from "./occ";
 import { Shape2 } from "./shape2";
 import { Vec2 } from "./util";
 
-const oc = await initOCC();
-
-const makeFace = (points: Vec2[]) => {
+const makeFace = (points: Vec2[], oc: OpenCascadeInstance) => {
   const mkWire = new oc.BRepBuilderAPI_MakePolygon_1();
 
   // Add all points
@@ -34,7 +32,8 @@ class Polygon extends Shape2 {
     if (points.length < 3) {
       throw new Error("Polygon needs at least 3 points");
     }
-    super(makeFace(points));
+    const oc = getOCC();
+    super(makeFace(points, oc), oc);
   }
 }
 
@@ -50,7 +49,8 @@ class RegularPolygon extends Shape2 {
       const a = i * angleStep;
       points.push([radius * Math.cos(a), radius * Math.sin(a)]);
     }
-    super(makeFace(points));
+    const oc = getOCC();
+    super(makeFace(points, oc), oc);
   }
 }
 type PolyFunc = {

@@ -10,7 +10,7 @@
     "format": "bun x prettier -w .",
     "prebuild": "bun run format",
     "build": "tsc && vite build",
-    "start": "bun server/server.ts models"
+    "start": "bun bin/server.ts models"
   },
   "dependencies": {
     "occ-tscad": "workspace:*"

@@ -27,7 +27,7 @@ export function downloadBinaryFile(internalUrl: string, fileName: string) {
 }
 
 export const getModelShape = async (contents: string) => {
-  const { sphere, box, circle, cone, cylinder, poly, torus, wedge, getOCC } =
+  const { sphere, box, circle, cone, cylinder, poly, torus, wedge, initOCC } =
     await import("occ-tscad");
 
   // remove imports
@@ -41,7 +41,7 @@ export const getModelShape = async (contents: string) => {
       console.error(`code must contain "const main"`);
       return;
     }
-    const oc = getOCC();
+    const oc = initOCC();
     const result = main(oc);
     return result;
   } catch (e) {

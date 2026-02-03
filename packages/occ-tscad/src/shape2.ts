@@ -21,7 +21,7 @@ export class Shape2 extends Shape {
     );
 
     // Return a new Shape2 object with the extruded shape
-    return new Shape3(prism.Shape());
+    return new Shape3(prism.Shape(), this.oc);
   }
 
   // Rotate around an axis by angle (in degrees)
@@ -37,7 +37,7 @@ export class Shape2 extends Shape {
       angle,
       false,
     );
-    return new Shape3(revol.Shape());
+    return new Shape3(revol.Shape(), this.oc);
   }
 
   // Rotate around an axis by angle (in degrees)
@@ -53,6 +53,6 @@ export class Shape2 extends Shape {
 
   sweep(path: TopoDS_Shape) {
     const pipe = new oc.BRepOffsetAPI_MakePipe_1(path, this.shape);
-    return new Shape3(pipe.Shape());
+    return new Shape3(pipe.Shape(), this.oc);
   }
 }

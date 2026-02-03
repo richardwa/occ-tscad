@@ -32,8 +32,9 @@ export const ModelViewer = (
           .on("click", async () => {
             const contents = shapeFileContents.get();
             if (contents == null) return;
-            const { renderToSTL, stlToObj, renderToGLB } =
+            const { renderToSTL, stlToObj, renderToGLB, initOCC } =
               await import("occ-tscad");
+            const oc = initOCC();
 
             const model = await getModelShape(contents);
             if (!model) return;
@@ -72,13 +73,13 @@ export const ModelViewer = (
         .watch(shapeFileContents, async (node) => {
           const contents = shapeFileContents.get();
           if (contents == null) return;
-          const { renderToSTL, stlToObj, renderToGLB } =
+          const { renderToSTL, stlToObj, renderToGLB, Shape3, initOCC } =
             await import("occ-tscad");
           try {
+            const oc = await initOCC();
             const model = await getModelShape(contents);
             if (!model) return;
-            const { Shape3 } = await import("occ-tscad");
-            const rotate = new Shape3(model.shape);
+            const rotate = new Shape3(model.shape, oc);
             rotate.rotateY(-90);
             rotate.rotateZ(-90);
             const glbFile = renderToGLB(rotate.shape);
