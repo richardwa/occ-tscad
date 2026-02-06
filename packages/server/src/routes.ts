@@ -1,5 +1,8 @@
 import { HashRouter, fragment, signal, div, hbox } from "solid-vanilla";
-const root = hbox().css("flex-grow", "1");
+const root = div()
+  .css("height", "100%")
+  .css("width", "100%")
+  .attr("id", "router");
 const router = new HashRouter(root);
 
 router.addRoute("/", (params) =>
@@ -16,8 +19,8 @@ router.addRoute("/file-browser/:file", (params) => {
   currentFile.set(params.file);
   return root.memo("file-browser", () =>
     fragment().do(async (node) => {
-      const { ModelView } = await import("./views/file-browser");
-      node.inner(ModelView(currentFile));
+      const { FileBrowser } = await import("./views/file-browser");
+      node.inner(FileBrowser(currentFile));
     }),
   );
 });

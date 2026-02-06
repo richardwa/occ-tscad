@@ -15,7 +15,8 @@ export const Home = () => {
   };
   getFileList();
   return vbox()
+    .cn("home")
     .css("gap", "1rem")
-    .css("height", "100vh")
+    .css("height", "100%")
     .inner(FileList(fileList, onFileClick));
 };

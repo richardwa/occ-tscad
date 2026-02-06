@@ -1,7 +1,7 @@
 import { h, Signal } from "solid-vanilla";
 
 export const Title = (s: string) =>
-  h("div").css("font-weight", "bold").css("margin", "0.25rem 0").inner(s);
+  h("div").css("font-weight", "bold").css("margin", "0.25rem").inner(s);
 
 export const Panel = () =>
   h("div")

@@ -2,7 +2,7 @@ import { hbox, signal, Signal, div } from "solid-vanilla";
 import { loadModelFile, ModelViewer, CheckBox, Button } from "../base";
 import { router } from "../routes";
 
-export const ModelView = (file: Signal<string | undefined>) => {
+export const FileBrowser = (file: Signal<string | undefined>) => {
   const shapeFileContents = signal<string>();
   const live = signal<boolean>(true).persistAs("LIVE_MODEL_VIEW");
 
@@ -19,7 +19,8 @@ export const ModelView = (file: Signal<string | undefined>) => {
   }, 10_000);
 
   return hbox()
-    .css("flex-grow", "1")
+    .cn("file-browser")
+    .css("height", "100%")
     .watch(file, loadFile)
     .inner(
       ModelViewer(

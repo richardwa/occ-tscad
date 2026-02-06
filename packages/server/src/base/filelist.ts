@@ -15,8 +15,11 @@ export const FileList = (
   onClick: (file: string) => void,
 ) => {
   return vbox()
+    .cn("file-list")
     .css("border-right", "1px solid gray")
     .css("min-width", "10rem")
+    .css("max-width", "20rem")
+    .css("height", "100%")
     .inner(
       hbox()
         .css("border-bottom", "1px solid gray")
@@ -24,9 +27,8 @@ export const FileList = (
         .css("align-items", "center")
         .inner(Title("files")),
       vbox()
-        .css("padding-right", ".25rem")
+        .css("padding", ".25rem")
         .watch(files, (node) => {
-          console.log(files);
           const list = files
             .get()
             .sort()

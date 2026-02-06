@@ -22,6 +22,7 @@ export const ModelViewer = (
     .css("padding", ".25rem");
 
   return vbox()
+    .cn("model-viewer")
     .css("flex-grow", "1")
     .inner(
       hbox().inner(

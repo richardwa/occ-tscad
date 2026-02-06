@@ -1,4 +1,3 @@
-import { OpenCascadeInstance } from "opencascade.js";
 import { getOCC } from "./occ";
 import { Shape2 } from "./shape2";
 import { Shape3 } from "./shape3";
