@@ -47,9 +47,7 @@ export const NumberInput = (val: Signal<number>) =>
 export const CheckBox = (val: Signal<boolean>) =>
   h("input")
     .attr("type", "checkbox")
+    .attr("checked", () => (val.get() ? "checked" : null))
     .on("change", (event) => {
       val.set(event.target.checked);
-    })
-    .watch(val, (node) => {
-      node.attr("checked", () => (val.get() ? "checked" : undefined));
     });

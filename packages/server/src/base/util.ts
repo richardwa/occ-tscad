@@ -26,19 +26,12 @@ export function downloadBinaryFile(internalUrl: string, fileName: string) {
   document.body.removeChild(link);
 }
 
-export const getModelShape = async (file: string) => {
-  const { main } = await import(`../../models/${file}`);
-
+export const getModelShape = async (file: string | undefined) => {
+  const { main } = await import(`../../models/${file}?t=${Date.now()}`);
   if (!main) {
-    console.error(`code must contain "const main"`);
-    return;
+    throw new Error(`code must contain "const main"`);
   }
   return main();
-};
-
-export const loadModelFile = async (file: string) => {
-  const resp = await fetch(`${document.baseURI}models/${file}`);
-  return await resp.text();
 };
 
 export const formatDate = (d = new Date()) => {

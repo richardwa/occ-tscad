@@ -31,10 +31,7 @@ export const ModelViewer = (
           .inner("Reset View"),
         Button()
           .on("click", async () => {
-            const filename = file.get();
-            if (!filename) return;
-            const model = await getModelShape(filename);
-            if (!model) return;
+            const model = await getModelShape(file.get());
             const stlBuffer = renderToSTL(model.shape);
             const objBuffer = stlToObj(stlBuffer);
             const url = URL.createObjectURL(
@@ -69,10 +66,7 @@ export const ModelViewer = (
         .css("width", "100%")
         .watch(file, async (node) => {
           try {
-            const filename = file.get();
-            if (!filename) return;
-            const model = await getModelShape(filename);
-            if (!model) return;
+            const model = await getModelShape(file.get());
             const oc = await initOCC();
             const rotate = new Shape3(model.shape, oc);
             rotate.rotateY(-90);
