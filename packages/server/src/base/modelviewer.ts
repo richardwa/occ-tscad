@@ -6,7 +6,14 @@ import {
   formatDate,
 } from "./util";
 import { Button } from "./components";
-import { initOCC, renderToGLB, renderToSTL, stlToObj, Shape3 } from "occ-tscad";
+import {
+  initOCC,
+  getOCCNullable,
+  renderToGLB,
+  renderToSTL,
+  stlToObj,
+  Shape3,
+} from "occ-tscad";
 
 import "@google/model-viewer";
 
@@ -31,6 +38,9 @@ export const ModelViewer = (
           .inner("Reset View"),
         Button()
           .on("click", async () => {
+            if (getOCCNullable() == null) {
+              await initOCC();
+            }
             const model = await getModelShape(file.get());
             const stlBuffer = renderToSTL(model.shape);
             const objBuffer = stlToObj(stlBuffer);
@@ -66,6 +76,11 @@ export const ModelViewer = (
         .css("width", "100%")
         .watch(file, async (node) => {
           try {
+            if (getOCCNullable() == null) {
+              errorMessage.inner("loading Opencascade ...");
+              await initOCC();
+            }
+            errorMessage.inner("loading model ...");
             const model = await getModelShape(file.get());
             const oc = await initOCC();
             const rotate = new Shape3(model.shape, oc);

@@ -6,7 +6,7 @@ export const FileBrowser = (file: Signal<string | undefined>) => {
   const live = signal<boolean>(true).persistAs("LIVE_MODEL_VIEW");
 
   setInterval(() => {
-    console.log("trigger", live.get());
+    console.log("interval live status", live.get());
     if (live.get()) {
       file.trigger();
     }

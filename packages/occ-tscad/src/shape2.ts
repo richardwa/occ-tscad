@@ -4,16 +4,15 @@ import { Shape3 } from "./shape3";
 import { initOCC } from "./occ";
 import { Vec3 } from "./util";
 
-const oc = await initOCC();
 
 export class Shape2 extends Shape {
   extrude(len: number | Vec3) {
     // Create a vector in Z direction
     const v = typeof len === "number" ? [0, 0, len] : len;
-    const extDir = new oc.gp_Vec_4(v[0], v[1], v[2]);
+    const extDir = new this.oc.gp_Vec_4(v[0], v[1], v[2]);
 
     // Extrude the shape along the vector
-    const prism = new oc.BRepPrimAPI_MakePrism_1(
+    const prism = new this.oc.BRepPrimAPI_MakePrism_1(
       this.shape,
       extDir,
       false,
@@ -26,12 +25,12 @@ export class Shape2 extends Shape {
 
   // Rotate around an axis by angle (in degrees)
   revolve(direction: Vec3, angle: number) {
-    const origin = new oc.gp_Pnt_3(0, 0, 0); // center of rotation
-    const zDir = new oc.gp_Dir_4(...direction); // axis direction
-    const axis = new oc.gp_Ax1_2(origin, zDir);
+    const origin = new this.oc.gp_Pnt_3(0, 0, 0); // center of rotation
+    const zDir = new this.oc.gp_Dir_4(...direction); // axis direction
+    const axis = new this.oc.gp_Ax1_2(origin, zDir);
 
     // Create revolved shape
-    const revol = new oc.BRepPrimAPI_MakeRevol_1(
+    const revol = new this.oc.BRepPrimAPI_MakeRevol_1(
       this.shape,
       axis,
       angle,
@@ -52,7 +51,7 @@ export class Shape2 extends Shape {
   }
 
   sweep(path: TopoDS_Shape) {
-    const pipe = new oc.BRepOffsetAPI_MakePipe_1(path, this.shape);
+    const pipe = new this.oc.BRepOffsetAPI_MakePipe_1(path, this.shape);
     return new Shape3(pipe.Shape(), this.oc);
   }
 }
