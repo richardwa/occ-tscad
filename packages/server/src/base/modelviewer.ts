@@ -6,12 +6,12 @@ import {
   formatDate,
 } from "./util";
 import { Button } from "./components";
+import { initOCC, renderToGLB, renderToSTL, stlToObj, Shape3 } from "occ-tscad";
 
 import "@google/model-viewer";
 
 export const ModelViewer = (
   file: Signal<string | undefined>,
-  shapeFileContents: Signal<string | undefined>,
   ...buttons: BaseNode[]
 ) => {
   const initialDirection = signal("45deg auto auto");
@@ -31,13 +31,9 @@ export const ModelViewer = (
           .inner("Reset View"),
         Button()
           .on("click", async () => {
-            const contents = shapeFileContents.get();
-            if (contents == null) return;
-            const { renderToSTL, stlToObj, renderToGLB, initOCC } =
-              await import("occ-tscad");
-            const oc = initOCC();
-
-            const model = await getModelShape(contents);
+            const filename = file.get();
+            if (!filename) return;
+            const model = await getModelShape(filename);
             if (!model) return;
             const stlBuffer = renderToSTL(model.shape);
             const objBuffer = stlToObj(stlBuffer);
@@ -71,15 +67,13 @@ export const ModelViewer = (
         .attr("camera-orbit", initialDirection)
         .css("height", "100%")
         .css("width", "100%")
-        .watch(shapeFileContents, async (node) => {
-          const contents = shapeFileContents.get();
-          if (contents == null) return;
-          const { renderToSTL, stlToObj, renderToGLB, Shape3, initOCC } =
-            await import("occ-tscad");
+        .watch(file, async (node) => {
           try {
-            const oc = await initOCC();
-            const model = await getModelShape(contents);
+            const filename = file.get();
+            if (!filename) return;
+            const model = await getModelShape(filename);
             if (!model) return;
+            const oc = await initOCC();
             const rotate = new Shape3(model.shape, oc);
             rotate.rotateY(-90);
             rotate.rotateZ(-90);

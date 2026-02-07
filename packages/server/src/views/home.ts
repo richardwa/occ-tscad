@@ -9,7 +9,7 @@ export const Home = () => {
   };
 
   const getFileList = async () => {
-    const resp = await fetch("/models");
+    const resp = await fetch("/fileList.json");
     const json = await resp.json();
     fileList.set(json);
   };

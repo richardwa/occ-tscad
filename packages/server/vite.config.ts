@@ -1,18 +1,6 @@
 import path from "path";
 import { defineConfig, ViteDevServer } from "vite";
-import express from "express";
-import { serveIndexJson } from "./bin/serveIndexJson";
-
-const expressPlugin = () => ({
-  name: "vite-plugin-express",
-  configureServer(server: ViteDevServer) {
-    const app = express();
-    const modelsFolder = path.resolve(__dirname, "models");
-    app.get("/models", serveIndexJson(modelsFolder));
-    app.use("/models", express.static(path.join(process.cwd(), modelsFolder)));
-    server.middlewares.use(app);
-  },
-});
+import { lsDirectory } from "./vite.ls-directory.plugin";
 
 export default defineConfig({
   base: "./",
@@ -26,7 +14,7 @@ export default defineConfig({
     outDir: path.resolve(__dirname, "dist"),
     emptyOutDir: true,
   },
-  plugins: [expressPlugin()],
+  plugins: [lsDirectory(path.resolve(__dirname, "models"), "/filelist.json")],
   optimizeDeps: {
     exclude: ["opencascade.js"],
   },

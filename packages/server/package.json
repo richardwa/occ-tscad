@@ -2,15 +2,11 @@
   "name": "server",
   "version": "0.0.0",
   "type": "module",
-  "bin": {
-    "tscad-server": "server/server.ts"
-  },
   "scripts": {
     "dev": "vite",
     "format": "bun x prettier -w .",
     "prebuild": "bun run format",
-    "build": "tsc && vite build",
-    "start": "bun bin/server.ts models"
+    "build": "tsc"
   },
   "dependencies": {
     "occ-tscad": "workspace:*"

@@ -26,28 +26,14 @@ export function downloadBinaryFile(internalUrl: string, fileName: string) {
   document.body.removeChild(link);
 }
 
-export const getModelShape = async (contents: string) => {
-  const { sphere, box, circle, cone, cylinder, poly, torus, wedge, initOCC } =
-    await import("occ-tscad");
+export const getModelShape = async (file: string) => {
+  const { main } = await import(`../../models/${file}`);
 
-  // remove imports
-  let replaced = contents.replace(/^\s*import[\s\S]*?;[\r\n]*/gm, "");
-  // remove exports
-  replaced = replaced.replace(/^\s*export /gm, "");
-
-  try {
-    const main = eval(replaced + "\n try{main;}catch{}");
-    if (!main) {
-      console.error(`code must contain "const main"`);
-      return;
-    }
-    const oc = initOCC();
-    const result = main(oc);
-    return result;
-  } catch (e) {
-    console.error(replaced, e);
-    throw e;
+  if (!main) {
+    console.error(`code must contain "const main"`);
+    return;
   }
+  return main();
 };
 
 export const loadModelFile = async (file: string) => {
