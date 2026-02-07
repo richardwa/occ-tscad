@@ -10,7 +10,8 @@
   "scripts": {
     "format": "bun x prettier -w .",
     "build": "bun run --workspaces build",
-    "postinstall": "bun run build"
+    "postinstall": "bun run build",
+    "dev": "bun run --filter server  dev"
   },
   "dependencies": {
     "@google/model-viewer": "^1.12.1",

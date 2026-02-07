@@ -1,10 +1,6 @@
 import { hbox, vbox, Signal, signal, h, div, BaseNode } from "solid-vanilla";
-import {
-  downloadBinaryFile,
-  setExtension,
-  getModelShape,
-  formatDate,
-} from "./util";
+import { downloadBinaryFile, setExtension, formatDate } from "./util";
+import { getModelShape } from "./model-importer";
 import { Button } from "./components";
 import {
   initOCC,
@@ -77,7 +73,7 @@ export const ModelViewer = (
         .watch(file, async (node) => {
           try {
             if (getOCCNullable() == null) {
-              errorMessage.inner("loading Opencascade ...");
+              errorMessage.inner("loading OpenCascade ...");
               await initOCC();
             }
             errorMessage.inner("loading model ...");

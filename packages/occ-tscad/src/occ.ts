@@ -4,7 +4,7 @@ let occ: OpenCascadeInstance | null = null;
 
 export const initOCC = async () => {
   if (occ) return occ;
-  console.log('loading occ');
+  console.log("loading occ");
   occ = await initOpenCascade();
   return occ;
 };

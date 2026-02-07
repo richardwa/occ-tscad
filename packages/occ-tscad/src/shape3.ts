@@ -140,4 +140,18 @@ export class Shape3 extends Shape {
     this.shape = mkFillet.Shape();
     return this;
   }
+
+  clone() {
+    return new Shape3(this.shape, this.oc);
+  }
+
+  repeat(num: number, direction: Vec3): Shape3 {
+    if (num <= 1) return this;
+
+    return this.union(
+      this.clone()
+        .translate(direction)
+        .repeat(num - 1, direction),
+    );
+  }
 }

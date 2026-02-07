@@ -26,14 +26,6 @@ export function downloadBinaryFile(internalUrl: string, fileName: string) {
   document.body.removeChild(link);
 }
 
-export const getModelShape = async (file: string | undefined) => {
-  const { main } = await import(`../../models/${file}?t=${Date.now()}`);
-  if (!main) {
-    throw new Error(`code must contain "const main"`);
-  }
-  return main();
-};
-
 export const formatDate = (d = new Date()) => {
   const parts = new Intl.DateTimeFormat("en-US", {
     year: "numeric",
