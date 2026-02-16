@@ -32,7 +32,7 @@ export const grid = ({
 export const main = () =>
   grid({
     thickness: 2,
-    border: [10,2],
+    border: [10, 2],
     rowsCols: [4, 8],
     keySize: [25, 19],
     gap: [10, 5],
