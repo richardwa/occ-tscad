@@ -69,7 +69,7 @@ export class Shape {
 
   private _rotate(axis: gp_Ax1_2, degrees: number) {
     const tf = new this.oc.gp_Trsf_1();
-    const angle = degrees / (2 * Math.PI);
+    const angle = degrees * (Math.PI / 180);
     tf.SetRotation_1(axis, angle);
     const transformer = new this.oc.BRepBuilderAPI_Transform_2(
       this.shape,
